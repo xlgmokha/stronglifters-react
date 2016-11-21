@@ -35,7 +35,7 @@ export default class AwesomeProject extends Component {
     super(props)
     let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
     this.state = {
-      peopleDatasource: dataSource.cloneWithRows(people)
+      peopleDataSource: dataSource.cloneWithRows(people)
     };
   }
   render() {
@@ -53,7 +53,7 @@ export default class AwesomeProject extends Component {
   _renderPersonRow(person) {
     return (
       <View style={styles.personRow}>
-        <Text style={styles.personName}>{person.firstName}</Text>
+        <Text style={styles.personName}>{person.name}</Text>
       </View>
     )
   }
