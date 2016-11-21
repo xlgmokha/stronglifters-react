@@ -1,33 +1,61 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, ListView, View } from 'react-native';
+import ViewContainer from './app/components/ViewContainer'
+import StatusBarBackground from './app/components/StatusBarBackground'
 
-export default class AwesomeProject extends Component {
+const people = [
+  { name: 'mo', age: 32 },
+  { name: 'allison', age: 33 },
+  { name: 'adia', age: 10 },
+  { name: 'nailah', age: 7 },
+]
+
+class ApplicationShell extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+        initialRoute="PeopleIndex"
+        ref="appNavigator"
+        style={styles.navigatorStyles}
+        renderScene={(route, navigator) => { return this._renderScene(route, navigator) }}
+      />
+    )
+  }
+  _renderScene(route, navigator) {
+    var globalNavigatorProps = { navigator }
+    switch(route.ident) {
+      case "PeopleIndex":
+        return (<PeopleIndexScreen {...globalNavigatorProps} />)
+    }
+  }
+}
+
+export default class AwesomeProject extends Component {
+  constructor(props) {
+    super(props)
+    let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
+    this.state = {
+      peopleDatasource: dataSource.cloneWithRows(people)
+    };
+  }
+  render() {
+    return (
+      <ViewContainer>
+        <StatusBarBackground style={{backgroundColor: "mistyrose"}} />
+        <ListView
+          dataSource={this.state.peopleDataSource}
+          renderRow={(person) => { return this._renderPersonRow(person) }}
+        />
+      </ViewContainer>
     );
+  }
+
+  _renderPersonRow(person) {
+    return (
+      <View style={styles.personRow}>
+        <Text style={styles.personName}>{person.firstName}</Text>
+      </View>
+    )
   }
 }
 
@@ -38,16 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  personRow: {
+
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  personName: {
+  }
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
