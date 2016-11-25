@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
-import Movies from '../components/movies'
+import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
+import Movies from '../components/movies';
+import Account from '../domain/account'
+var t = require('tcomb-form-native');
+var Form = t.form.Form;
 
 export default class LoginScreen extends Component {
   static get defaultProps() {
@@ -10,6 +13,15 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View>
+        <View>
+          <Text>Login</Text>
+        </View>
+        <View>
+          <Form ref="form" type={Account} options={{}} />
+        </View>
+        <TouchableHighlight onPress={this.onLogin.bind(this)}>
+          <Text>Login</Text>
+        </TouchableHighlight>
         <Text>Hi! My name is {this.props.title}.</Text>
         <TouchableHighlight onPress={this.onForward.bind(this)}>
           <Text>Next</Text>
@@ -27,5 +39,31 @@ export default class LoginScreen extends Component {
 
   onBack() {
     this.props.navigator.pop();
+  }
+
+  onLogin() {
+    let value = this.refs.form.getValue();
+    let that = this;
+    if (value) {
+      fetch("http://localhost:3000/sessions/create", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: value.username,
+          password: value.password,
+        })
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        that.storeToken("authentication_token", json.token)
+      }).done();
+    }
+  }
+
+  storeToken(key, value) {
+    AsyncStorage.setItem(key, value);
   }
 }
