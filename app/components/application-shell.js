@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, ListView, View, Image, TextInput, Navigator } from 'react-native';
-import MyScene from '../screens/my-scene'
+import LoginScreen from '../screens/login-screen'
 
 export default class ApplicationShell extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{component: MyScene, params: {title: 'Hello'}}}
+        initialRoute={{component: LoginScreen, params: {title: 'Hello'}}}
         renderScene={this.routeTo}
         configureScene={(route) => Navigator.SceneConfigs.FloatFromRight}
       />

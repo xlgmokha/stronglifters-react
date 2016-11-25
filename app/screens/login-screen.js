@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import Movies from '../components/movies'
 
-export default class MyScene extends Component {
+export default class LoginScreen extends Component {
   static get defaultProps() {
-    return { title: 'MyScene' };
+    return { title: 'LoginScreen' };
   }
 
   render() {
