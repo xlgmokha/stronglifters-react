@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import Movies from './movies'
+import Movies from '../components/movies'
 
 export default class MyScene extends Component {
   static get defaultProps() {

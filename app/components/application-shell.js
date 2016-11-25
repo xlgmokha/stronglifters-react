@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, ListView, View, Image, TextInput, Navigator } from 'react-native';
-import MyScene from './my-scene'
+import MyScene from '../screens/my-scene'
 
 export default class ApplicationShell extends Component {
   render() {
