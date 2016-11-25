@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, ListView, View, Image, TextInput } from 'react-native';
-import ViewContainer from './ViewContainer'
-import StatusBarBackground from './StatusBarBackground'
+import { AppRegistry, Text, ListView, View, Image, TextInput, TouchableHighlight } from 'react-native';
 import Api from '../services/api'
 import Movie from './movie'
 
@@ -22,9 +20,9 @@ export default class Movies extends Component {
     new Api(url).get((json) => {
       that.setState({ dataSource: that.mapAll(json.movies) });
     });
-    setInterval(() => {
-      that.setState({ showText: !that.state.showText });
-    }, 1000);
+    //setInterval(() => {
+      //that.setState({ showText: !that.state.showText });
+    //}, 1000);
   }
 
   render() {
@@ -35,6 +33,9 @@ export default class Movies extends Component {
       <View style={{flex: 1, alignItems: 'center'}}>
         <Image source={pic} style={{width: 193, height: 110}} />
         <Text>{display}</Text>
+        <TouchableHighlight onPress={this.onBack.bind(this)}>
+          <Text>Back</Text>
+        </TouchableHighlight>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(row) => <Movie name={row} />}
@@ -46,5 +47,9 @@ export default class Movies extends Component {
   mapAll(movies) {
     movies.forEach((item) => console.log(item))
     return this.ds.cloneWithRows(movies.map((item) => item.title));
+  }
+
+  onBack() {
+    this.props.navigator.pop();
   }
 }

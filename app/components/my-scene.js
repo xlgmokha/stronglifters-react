@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Navigator } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
+import Movies from './movies'
 
 export default class MyScene extends Component {
   static get defaultProps() {
@@ -10,7 +11,21 @@ export default class MyScene extends Component {
     return (
       <View>
         <Text>Hi! My name is {this.props.title}.</Text>
+        <TouchableHighlight onPress={this.onForward.bind(this)}>
+          <Text>Next</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.onBack.bind(this)}>
+          <Text>Back</Text>
+        </TouchableHighlight>
       </View>
     )
+  }
+
+  onForward() {
+    this.props.navigator.push({component: Movies, params: {}});
+  }
+
+  onBack() {
+    this.props.navigator.pop();
   }
 }

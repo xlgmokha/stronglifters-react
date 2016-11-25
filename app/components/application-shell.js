@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, ListView, View, Image, TextInput } from 'react-native';
-import Movies from './movies'
+import { AppRegistry, Text, ListView, View, Image, TextInput, Navigator } from 'react-native';
+import MyScene from './my-scene'
 
 export default class ApplicationShell extends Component {
   render() {
     return (
-      <Movies />
+      <Navigator
+        initialRoute={{component: MyScene, params: {title: 'Hello'}}}
+        renderScene={this.routeTo}
+        configureScene={(route) => Navigator.SceneConfigs.FloatFromRight}
+      />
     );
+  }
+  routeTo(route, navigator) {
+    let Component = route.component;
+    return (<Component navigator={navigator} {...route.params} />)
   }
 }
