@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
 import Movies from '../components/movies';
 import Account from '../domain/account'
+import Api from '../services/api'
+
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
 
@@ -43,23 +45,13 @@ export default class LoginScreen extends Component {
 
   onLogin() {
     let value = this.refs.form.getValue();
-    let that = this;
     if (value) {
-      fetch("http://localhost:3000/sessions/create", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: value.username,
-          password: value.password,
-        })
-      })
-      .then((response) => response.json())
-      .then((json) => {
+      body = { username: value.username, password: value.password };
+      let that = this;
+      new Api('/api/sessions').post(body, (json) => {
+        console.log(json);
         that.storeToken("authentication_token", json.token)
-      }).done();
+      });
     }
   }
 
