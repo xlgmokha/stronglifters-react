@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
-import ApplicationStorage from '../domain/application-storage';
+import ApplicationStorage from '../infrastructure/application-storage';
 
 export default class DashboardScreen extends Component {
   render() {

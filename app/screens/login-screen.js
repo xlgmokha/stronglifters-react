@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
 import Account from '../domain/account'
-import Api from '../services/api'
-import ApplicationStorage from '../domain/application-storage'
+import Api from '../infrastructure/api'
+import ApplicationStorage from '../infrastructure/application-storage'
 import Movies from '../components/movies';
 import DashboardScreen from './dashboard-screen'
 

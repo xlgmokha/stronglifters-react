@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, ListView, View, Image, TextInput, Navigator } from 'react-native';
 import LoginScreen from '../screens/login-screen'
-import Router from '../services/router'
+import Router from '../infrastructure/router'
 
 export default class ApplicationShell extends Component {
   constructor(props) {

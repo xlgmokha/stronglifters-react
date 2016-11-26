@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, ListView, View, Image, TextInput, TouchableHighlight } from 'react-native';
-import Api from '../services/api'
+import Api from '../infrastructure/api'
 import Movie from './movie'
 
 export default class Movies extends Component {

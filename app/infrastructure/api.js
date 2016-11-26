@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import ApplicationStorage from '../domain/application-storage';
+import ApplicationStorage from './application-storage';
 
 export default class Api {
   constructor(url) {
