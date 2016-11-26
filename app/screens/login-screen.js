@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import ApplicationStorage from '../infrastructure/application-storage'
@@ -13,6 +13,9 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.storage = new ApplicationStorage();
+    this.state = {
+      account: { username: 'mokha', password: '' }
+    };
   }
 
   componentDidMount() {
@@ -24,15 +27,25 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View>
-          <Form ref="form" type={Account} options={{}} />
+          <Form ref="form"
+            type={Account}
+            onChange={this.onChange.bind(this)}
+            value={this.state.account}
+            options={this.formOptions()}
+          />
         </View>
-        <TouchableHighlight onPress={this.onLogin.bind(this)}>
-          <Text>Login</Text>
-        </TouchableHighlight>
+        <Button onPress={this.onLogin.bind(this)} title="Login" />
       </View>
     )
+  }
+
+  formOptions() {
+    return {
+      auto: 'placeholders',
+      fields: { password: { secureTextEntry: true } }
+    };
   }
 
   onLogin() {
@@ -51,9 +64,37 @@ export default class LoginScreen extends Component {
     }
   }
 
+  onChange(account) {
+    this.setState({account: account});
+  }
+
   openDashboard(username) {
     this.props.navigator.push({
       component: DashboardScreen, params: { username: username }
     });
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48bbec',
+    borderColor: '#48bbed',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  }
+});
