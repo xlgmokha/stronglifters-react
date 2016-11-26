@@ -2,7 +2,11 @@ import Config from 'react-native-config';
 
 export default class Api {
   constructor(url) {
-    this.url = `${Config.API_HOST}${url}`
+    if (url.startsWith('http')) {
+      this.url = url;
+    } else {
+      this.url = `${Config.API_HOST}${url}`
+    }
     console.log(this.url);
   }
 
