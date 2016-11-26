@@ -17,13 +17,8 @@ export default class LoginScreen extends Component {
 
   componentDidMount() {
     let token = this.storage.fetch('authentication_token');
-    let username = this.storage.fetch('username');
-
-    console.log(username);
-    if (token) {
-      this.props.navigator.push({
-        component: DashboardScreen, params: { username: username }
-      });
+    if (token != null) {
+      this.openDashboard(this.storage.fetch('username'))
     }
   }
 
@@ -51,7 +46,14 @@ export default class LoginScreen extends Component {
         console.log(json);
         that.storage.save("authentication_token", json.token);
         that.storage.save("username", value.username);
+        that.openDashboard(value.username);
       });
     }
+  }
+
+  openDashboard(username) {
+    this.props.navigator.push({
+      component: DashboardScreen, params: { username: username }
+    });
   }
 }
