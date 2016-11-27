@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import ApplicationShell from './app/components/application-shell'
+import App from './app/containers/app'
 
-AppRegistry.registerComponent('AwesomeProject', () => ApplicationShell);
+AppRegistry.registerComponent('AwesomeProject', () => App);
