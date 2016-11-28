@@ -8,7 +8,7 @@ class AwesomeApp extends Component {
   render(){
     const { state, actions } = this.props;
     return (
-      <Counter counter={state.count} {...actions} />
+      <Counter counter={state.count} movies={state.movies} {...actions} />
     );
   }
 }

@@ -16,6 +16,11 @@ export default function counter(state = initialState, action = {}) {
         ...state,
         count: state.count - 1
       };
+    case types.RECEIVED_MOVIES:
+      return {
+        ...state,
+        movies: action.movies,
+      };
     default:
       return state;
   }

@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import * as reducers from '../reducers';
 import AwesomeApp from './awesome-app'
+import logger from 'redux-logger';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, logger())(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 
