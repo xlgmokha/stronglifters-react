@@ -3,10 +3,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 export default class Counter extends Component {
   render() {
-    const { counter, increment, decrement, fetchMovies } = this.props;
     console.log("PROPS");
     console.dir(this.props);
-    let moviesCount = this.props.movies ? this.props.movies.length : 0;
+    const { counter, increment, decrement, fetchMovies } = this.props;
+    let moviesCount = this.props.movies.movies.length;
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>{counter}</Text>
