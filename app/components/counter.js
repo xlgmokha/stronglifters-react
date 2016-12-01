@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 export default class Counter extends Component {
   render() {
-    console.log("PROPS");
-    console.dir(this.props);
     const { counter, increment, decrement, fetchMovies } = this.props;
     let moviesCount = this.props.movies.movies.length;
     return (

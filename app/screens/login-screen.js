@@ -18,12 +18,12 @@ export default class LoginScreen extends Component {
     };
   }
 
-  componentDidMount() {
-    let token = this.storage.fetch('authentication_token');
-    if (token != null) {
-      this.openDashboard(this.storage.fetch('username'))
-    }
-  }
+  //componentDidMount() {
+    //let token = this.storage.fetch('authentication_token');
+    //if (token != null) {
+      //this.openDashboard(this.storage.fetch('username'))
+    //}
+  //}
 
   render() {
     return (
@@ -53,14 +53,15 @@ export default class LoginScreen extends Component {
     console.log(`attempting to login ${value.username}`);
 
     if (value) {
-      body = { username: value.username, password: value.password };
-      let that = this;
-      new Api('/sessions').post(body, (json) => {
-        console.log(json);
-        that.storage.save("authentication_token", json.token);
-        that.storage.save("username", value.username);
-        that.openDashboard(value.username);
-      });
+      this.props.login(value.username, value.password);
+      //body = { username: value.username, password: value.password };
+      //let that = this;
+      //new Api('/sessions').post(body, (json) => {
+        //console.log(json);
+        //that.storage.save("authentication_token", json.token);
+        //that.storage.save("username", value.username);
+        //that.openDashboard(value.username);
+      //});
     }
   }
 
