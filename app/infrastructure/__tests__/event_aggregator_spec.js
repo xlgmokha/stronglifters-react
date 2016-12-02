@@ -1,20 +1,20 @@
 import EventAggregator from '../event-aggregator';
 
 describe("EventAggregator", () => {
+  class TestSubscriber {
+    notify(event) {
+      this.called = true;
+      this.calledWith = event;
+    }
+  }
+
   let subject = null;
 
   beforeEach(() => {
     subject = new EventAggregator();
   });
 
-  describe("publish", () => {
-    class TestSubscriber {
-      notify(event) {
-        this.called = true;
-        this.calledWith = event;
-      }
-    }
-
+  describe("#publish", () => {
     it ("publishes the event to all interested subscribers", () => {
       let subscriber = new TestSubscriber();
       subject.subscribe('LOGGED_IN', subscriber);
@@ -30,6 +30,18 @@ describe("EventAggregator", () => {
       subject.publish({ event: 'LOGGED_OUT' })
 
       expect(subscriber.called).toBeFalsy();
+      expect(subscriber.calledWith).toBeUndefined();
+    });
+  });
+
+  describe("#unsubscribe", () => {
+    it ("unsubscribes a listener", () => {
+      let subscriber = new TestSubscriber();
+      subject.subscribe('LOGGED_IN', subscriber);
+      subject.unsubscribe(subscriber);
+      subject.publish({ event: 'LOGGED_IN', username: 'blah' })
+
+      expect(subscriber.called).toBeFalsy;
       expect(subscriber.calledWith).toBeUndefined();
     });
   });
