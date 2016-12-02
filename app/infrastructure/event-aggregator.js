@@ -1,14 +1,21 @@
 
 export default class EventAggregator {
   constructor() {
-    this.subscribers = [];
+    this.subscriptions = { };
   }
 
   subscribe(event, subscriber) {
-    this.subscribers.push(subscriber);
+    this.subscriptionsFor(event).push(subscriber);
   }
 
   publish(event) {
-    this.subscribers.forEach(x => x.notify(event));
+    this.subscriptionsFor(event.event).forEach(x => x.notify(event));
+  }
+
+  subscriptionsFor(event) {
+    if (this.subscriptions.hasOwnProperty(event) == false) {
+      this.subscriptions[event] = [];
+    }
+    return this.subscriptions[event];
   }
 }
