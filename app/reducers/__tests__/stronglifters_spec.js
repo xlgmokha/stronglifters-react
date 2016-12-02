@@ -1,6 +1,5 @@
 import stronglifters from '../stronglifters';
 
-
 describe('stronglifters', () => {
   let subject = stronglifters;
 
