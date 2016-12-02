@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
-import ApplicationStorage from '../infrastructure/application-storage'
-import Movies from '../components/movies';
 import DashboardScreen from './dashboard-screen'
 
 var t = require('tcomb-form-native');
@@ -12,18 +10,10 @@ var Form = t.form.Form;
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props)
-    this.storage = new ApplicationStorage();
     this.state = {
       account: { username: 'mokha', password: '' }
     };
   }
-
-  //componentDidMount() {
-    //let token = this.storage.fetch('authentication_token');
-    //if (token != null) {
-      //this.openDashboard(this.storage.fetch('username'))
-    //}
-  //}
 
   render() {
     return (
@@ -49,20 +39,8 @@ export default class LoginScreen extends Component {
   }
 
   onLogin() {
-    let value = this.refs.form.getValue();
-    console.log(`attempting to login ${value.username}`);
-
-    if (value) {
-      this.props.login(value.username, value.password);
-      //body = { username: value.username, password: value.password };
-      //let that = this;
-      //new Api('/sessions').post(body, (json) => {
-        //console.log(json);
-        //that.storage.save("authentication_token", json.token);
-        //that.storage.save("username", value.username);
-        //that.openDashboard(value.username);
-      //});
-    }
+    let account = this.refs.form.getValue();
+    this.props.login(account.username, account.password);
   }
 
   onChange(account) {
