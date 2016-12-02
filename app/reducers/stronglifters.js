@@ -8,8 +8,6 @@ const initialState = {
 export default function stronglifters(state = initialState, action = {}) {
   switch(action.type) {
     case types.LOGGED_IN:
-      console.log("LOGGED_IN REDUCER");
-      console.dir(state);
       return {
         ...state,
         username: action.username,
