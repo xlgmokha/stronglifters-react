@@ -13,9 +13,10 @@ export default class EventAggregator {
   }
 
   subscriptionsFor(event) {
-    if (this.subscriptions.hasOwnProperty(event) == false) {
-      this.subscriptions[event] = [];
+    let key = event;
+    if (!this.subscriptions.hasOwnProperty(key)) {
+      this.subscriptions[key] = [];
     }
-    return this.subscriptions[event];
+    return this.subscriptions[key];
   }
 }
