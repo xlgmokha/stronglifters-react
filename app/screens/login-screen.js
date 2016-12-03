@@ -15,6 +15,16 @@ export default class LoginScreen extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log("MOUNTED");
+    this.props.eventAggregator.subscribe('LOGGED_IN', this);
+  }
+
+  componentWillUnmount() {
+    console.log("UNMOUNTING");
+    this.props.eventAggregator.unsubscribe(this);
+  }
+
   render() {
     return (
       <View style={styles.container}>

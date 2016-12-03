@@ -12,7 +12,7 @@ describe("Router", () => {
     subject = new Router({ eventAggregator });
   });
 
-  describe("routeTo", () => {
+  describe("#routeTo", () => {
     let params = { personId: 1 };
     let route = { component: MyComponent, params: params };
     let navigator = {};
