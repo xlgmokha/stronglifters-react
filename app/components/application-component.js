@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 
 export default class ApplicationComponent extends Component {
   componentDidMount() {
-    console.log("MOUNTED");
-    this.props.eventAggregator.subscribe('LOGGED_IN', this);
+    this.state.eventsOfInterest.forEach((event) => {
+      this.props.eventAggregator.subscribe(event, this);
+    });
   }
 
   componentWillUnmount() {
-    console.log("UNMOUNTING");
     this.props.eventAggregator.unsubscribe(this);
+  }
+
+  publish(event) {
+    this.props.eventAggregator.publish(event);
   }
 }

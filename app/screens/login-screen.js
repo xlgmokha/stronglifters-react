@@ -11,7 +11,10 @@ var Form = t.form.Form;
 export default class LoginScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
-    this.state = { account: { username: 'mokha', password: '' } };
+    this.state = {
+      account: { username: 'mokha', password: '' },
+      eventsOfInterest: ['LOGGED_IN'],
+    };
   }
 
   render() {
@@ -39,7 +42,12 @@ export default class LoginScreen extends ApplicationComponent {
 
   onLogin() {
     let account = this.refs.form.getValue();
-    this.props.login(account.username, account.password);
+    //this.props.login(account.username, account.password);
+    this.publish({
+      event: 'LOGIN',
+      username: account.username,
+      password: account.password
+    });
   }
 
   onChange(account) {

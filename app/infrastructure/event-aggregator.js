@@ -4,10 +4,12 @@ export default class EventAggregator {
   }
 
   subscribe(event, subscriber) {
+    console.log(`subscribe to ${event}`);
     this._subscriptionsFor(event).push(subscriber);
   }
 
   publish(event) {
+    console.log(`publish ${event}`);
     this._subscriptionsFor(event.event).forEach(x => x.notify(event));
   }
 
