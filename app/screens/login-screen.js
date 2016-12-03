@@ -1,28 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
+import ApplicationComponent from '../components/application-component'
 
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
 
-export default class LoginScreen extends Component {
+export default class LoginScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      account: { username: 'mokha', password: '' }
-    };
-  }
-
-  componentDidMount() {
-    console.log("MOUNTED");
-    this.props.eventAggregator.subscribe('LOGGED_IN', this);
-  }
-
-  componentWillUnmount() {
-    console.log("UNMOUNTING");
-    this.props.eventAggregator.unsubscribe(this);
+    this.state = { account: { username: 'mokha', password: '' } };
   }
 
   render() {
