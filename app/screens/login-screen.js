@@ -59,6 +59,12 @@ export default class LoginScreen extends ApplicationComponent {
       component: DashboardScreen, params: { username: username }
     });
   }
+
+  notify(event) {
+    console.log("IN LOGIN SCREEN");
+    console.log(event);
+    this.openDashboard(event.username);
+  }
 }
 
 const styles = StyleSheet.create({
