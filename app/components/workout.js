@@ -4,7 +4,10 @@ import { View, Text } from 'react-native';
 export default class Workout extends Component {
   render() {
     return (
-      <Text style={{flex: 1}}>{this.props.name}</Text>
+      <View style={{flex: 1}}>
+        <Text>{this.props.routine_name}</Text>
+        <Text>{this.props.body_weight.amount}</Text>
+      </View>
     )
   }
 }

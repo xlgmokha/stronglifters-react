@@ -23,7 +23,7 @@ export default class DashboardScreen extends ApplicationComponent {
         <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(row) => <Workout name={row} />}
+          renderRow={(row) => <Workout {...row} />}
           />
         <Button onPress={this.onLogout.bind(this)} title="Logout" />
       </View>
@@ -57,6 +57,6 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   mapAll(workouts) {
-    return this.ds.cloneWithRows(workouts.map((item) => item.routine_name));
+    return this.ds.cloneWithRows(workouts);
   }
 }
