@@ -1,17 +1,14 @@
-import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 export default class ApplicationStorage {
   fetch(key) {
-    this.safelyRun(() => {
-      const value = AsyncStorage.getItem(key);
-      console.log(`found ${key} ${value}`);
-      return value;
+    return this.safelyRun(() => {
+      return AsyncStorage.getItem(key);
     });
   }
 
-  save(key, value) {
+  async save(key, value) {
     this.safelyRun(() => {
-      console.log(`storing ${key} ${value}`);
       AsyncStorage.setItem(key, value);
     });
   }

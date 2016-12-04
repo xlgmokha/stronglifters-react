@@ -38,7 +38,7 @@ export default class DashboardScreen extends ApplicationComponent {
     console.dir(event);
     switch(event.event) {
       case "FETCHED_WORKOUTS":
-        that.setState({ dataSource: that.mapAll(json.workouts) });
+        this.setState({ dataSource: this.mapAll(event.workouts) });
     }
   }
 

@@ -11,9 +11,10 @@ export default class FetchWorkouts {
   }
 
   onResponse(json) {
+    console.dir(json)
     this.eventAggregator.publish({
       event: 'FETCHED_WORKOUTS',
-      workouts: json.workouts
+      workouts: json.workouts || []
     });
   }
 }
