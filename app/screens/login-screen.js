@@ -54,16 +54,12 @@ export default class LoginScreen extends ApplicationComponent {
     this.setState({account: account});
   }
 
-  openDashboard(username) {
-    this.props.navigator.push({
-      component: DashboardScreen, params: { username: username }
-    });
-  }
-
   notify(event) {
     console.log("IN LOGIN SCREEN");
     console.log(event);
-    this.openDashboard(event.username);
+    this.props.navigator.push({
+      component: DashboardScreen, params: { username: username }
+    });
   }
 }
 

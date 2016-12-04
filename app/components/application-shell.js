@@ -10,7 +10,6 @@ export default class ApplicationShell extends Component {
     super(props);
     const eventAggregator = new EventAggregator();
     this.router = new Router({eventAggregator});
-
     this.registerCommands(eventAggregator);
   }
 
