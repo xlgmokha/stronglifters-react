@@ -14,7 +14,6 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   render() {
-    console.log("LOADING DASHBOARD");
     return (
       <View>
         <Text>Welcome back {this.props.username}!</Text>
@@ -35,7 +34,6 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   notify(event) {
-    console.dir(event);
     switch(event.event) {
       case "FETCHED_WORKOUTS":
         this.setState({ dataSource: this.mapAll(event.workouts) });
@@ -47,11 +45,10 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   onStartWorkout() {
-    console.log("load previous workouts");
+    console.log("start workout");
   }
 
   onLogout() {
-    console.log("logout");
     let storage = new ApplicationStorage();
     storage.delete('authentication_token');
     storage.delete('username');
@@ -59,7 +56,6 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   mapAll(workouts) {
-    workouts.forEach((item) => console.log(item))
-    return this.ds.cloneWithRows(workouts.map((item) => item.title));
+    return this.ds.cloneWithRows(workouts.map((item) => item.routine_name));
   }
 }

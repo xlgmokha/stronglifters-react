@@ -13,22 +13,32 @@ export default class Api {
 
   get(success) {
     this.defaultHeaders((headers) => {
+      console.log(`GET ${this.url}`);
       fetch(this.url, { method: 'GET', headers: headers })
         .then((response) => response.json())
-        .then(success)
+        .then((json) => {
+          console.dir(json);
+          success(json);
+        })
         .catch((error) => console.error(error))
         .done();
     });
   }
 
   post(body, success) {
+    const jsonBody = JSON.stringify(body);
+    console.log(`POST ${this.url}`);
+    console.dir(jsonBody)
     fetch(this.url, {
       method: "POST",
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: jsonBody
     })
       .then((response) => response.json())
-      .then(success)
+      .then((json) => {
+        console.dir(json);
+        success(json);
+      })
       .catch((error) => console.error(error))
       .done();
   }
@@ -37,7 +47,6 @@ export default class Api {
     this.storage
       .fetch('authentication_token')
       .then((token) => {
-        console.dir(token);
         success({
           'Accept': 'application/json',
           'Content-Type': 'application/json',

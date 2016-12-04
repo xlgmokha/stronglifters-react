@@ -45,7 +45,6 @@ export default class Movies extends Component {
   }
 
   mapAll(movies) {
-    movies.forEach((item) => console.log(item))
     return this.ds.cloneWithRows(movies.map((item) => item.title));
   }
 

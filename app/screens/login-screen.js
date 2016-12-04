@@ -42,7 +42,6 @@ export default class LoginScreen extends ApplicationComponent {
 
   onLogin() {
     let account = this.refs.form.getValue();
-    //this.props.login(account.username, account.password);
     this.publish({
       event: 'LOGIN',
       username: account.username,
@@ -55,7 +54,6 @@ export default class LoginScreen extends ApplicationComponent {
   }
 
   notify(event) {
-    console.dir(event);
     this.props.navigator.push({
       component: DashboardScreen, params: { username: event.username }
     });
