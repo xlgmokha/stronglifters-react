@@ -12,12 +12,6 @@ describe("LoginCommand", () => {
   });
 
   describe("#notify", () => {
-    it ("does something", () => {
-      const func = jest.fn();
-      func();
-      expect(func).toHaveBeenCalled();
-    });
-
     it("posts data to the api", () => {
       subject.notify({event: 'LOGIN', username: 'mokha', password: 'password'});
       expect(api.post).toHaveBeenCalled();
@@ -25,10 +19,10 @@ describe("LoginCommand", () => {
   });
 
   describe("#onResponse", () => {
-    it("publishes an event", () => {
-      username = 'mokha';
-      token = 'token';
+    let username = 'mokha';
+    let token = 'token';
 
+    it("publishes an event", () => {
       subject.onResponse({
         username: username,
         authentication_token: token,
