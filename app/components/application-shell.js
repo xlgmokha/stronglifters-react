@@ -4,6 +4,7 @@ import LoginScreen from '../screens/login-screen'
 import Router from '../infrastructure/router'
 import EventAggregator from '../infrastructure/event-aggregator';
 import LoginCommand from '../commands/login-command';
+import FetchWorkouts from '../queries/fetch-workouts';
 
 export default class ApplicationShell extends Component {
   constructor(props) {
@@ -26,5 +27,8 @@ export default class ApplicationShell extends Component {
   registerCommands(eventAggregator) {
     let command = new LoginCommand(eventAggregator)
     eventAggregator.subscribe("LOGIN", command);
+
+    let query = new FetchWorkouts(eventAggregator)
+    eventAggregator.subscribe("FETCH_WORKOUTS", query);
   }
 }

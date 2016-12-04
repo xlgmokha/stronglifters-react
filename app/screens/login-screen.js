@@ -12,7 +12,7 @@ export default class LoginScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
     this.state = {
-      account: { username: 'mokha', password: '' },
+      account: { username: 'mokha', password: 'password' },
       eventsOfInterest: ['LOGGED_IN'],
     };
   }
@@ -55,8 +55,9 @@ export default class LoginScreen extends ApplicationComponent {
   }
 
   notify(event) {
+    console.dir(event);
     this.props.navigator.push({
-      component: DashboardScreen, params: { username: username }
+      component: DashboardScreen, params: { username: event.username }
     });
   }
 }
