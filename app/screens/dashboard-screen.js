@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, ListView } from 'react-native';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
+import Workout from '../components/workout';
 
 export default class DashboardScreen extends ApplicationComponent {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class DashboardScreen extends ApplicationComponent {
         <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(row) => <Movie name={row} />}
+          renderRow={(row) => <Workout name={row} />}
           />
         <Button onPress={this.onLogout.bind(this)} title="Logout" />
       </View>
