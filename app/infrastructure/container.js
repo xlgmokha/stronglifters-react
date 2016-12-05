@@ -8,6 +8,6 @@ export default class Container {
   }
 
   resolve(key) {
-    return this.components[key]();
+    return this.components[key](this);
   }
 }

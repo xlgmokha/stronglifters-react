@@ -9,11 +9,27 @@ describe("Container", () => {
 
   describe("#resolve", () => {
     class Item { }
+    class Dependent {
+      constructor(item) {
+        this.item = item;
+      }
+    }
 
     it("can resolve an instance", () => {
-      subject.register('eventAggregator', () => { return new Item() })
+      subject.register('item', () => { return new Item() })
 
-      expect(subject.resolve('eventAggregator')).toBeInstanceOf(Item);
+      expect(subject.resolve('item')).toBeInstanceOf(Item);
+    });
+
+    it ("can resolve an instance with a dependency", function() {
+      subject.register('item', () => { return new Item() });
+      subject.register('dependent', (container) => {
+        return new Dependent(container.resolve('item'));
+      });
+
+      result = subject.resolve('dependent');
+      expect(result).toBeInstanceOf(Dependent);
+      expect(result.item).toBeInstanceOf(Item);
     });
   });
 });
