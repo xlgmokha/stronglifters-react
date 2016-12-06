@@ -1,10 +1,10 @@
-import Container from '../container';
+import Registry from '../registry';
 
-describe("Container", () => {
+describe("Registry", () => {
   let subject = null;
 
   beforeEach(() => {
-    subject = new Container();
+    subject = new Registry();
   });
 
   describe("#resolve", () => {

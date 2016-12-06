@@ -20,7 +20,7 @@ class Registration {
   }
 }
 
-export default class Container {
+export default class Registry {
   constructor() {
     this.components = {};
   }
