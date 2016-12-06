@@ -22,14 +22,23 @@ class Registration {
 
 export default class Registry {
   constructor() {
-    this.components = {};
+    this.registrations = {};
   }
 
   register(key, factory) {
-    return this.components[key] = new Registration(key, factory)
+    if (this.registrations[key] == undefined) {
+      this.registrations[key] = [];
+    }
+    let registration = new Registration(key, factory);
+    this.registrations[key].push(registration);
+    return registration;
   }
 
   resolve(key) {
-    return this.components[key].create(this);
+    return this.registrations[key][0].create(this);
+  }
+
+  resolveAll(key) {
+    return this.registrations[key].map(registration => registration.create(this));
   }
 }

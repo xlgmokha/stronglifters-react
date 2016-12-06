@@ -27,7 +27,7 @@ describe("Registry", () => {
         return new Dependent(container.resolve('item'));
       });
 
-      result = subject.resolve('dependent');
+      let result = subject.resolve('dependent');
       expect(result).toBeInstanceOf(Dependent);
       expect(result.item).toBeInstanceOf(Item);
     });
@@ -35,8 +35,22 @@ describe("Registry", () => {
     it ("can resolve a singleton", () => {
       subject.register('item', () => { return new Item() }).asSingleton();
 
-      result = subject.resolve('item')
+      let result = subject.resolve('item')
       expect(result).toBe(subject.resolve('item'));
+    });
+  });
+
+  describe("#resolveAll", () => {
+    beforeEach(() => {
+      subject.register('item', () => { return "0"; });
+      subject.register('item', () => { return "1"; });
+    });
+
+    it ("resolves all instances of the given key", () => {
+      let results = subject.resolveAll('item');
+      expect(results.length).toEqual(2);
+      expect(results[0]).toEqual("0");
+      expect(results[1]).toEqual("1");
     });
   });
 });
