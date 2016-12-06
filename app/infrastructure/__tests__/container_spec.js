@@ -31,5 +31,12 @@ describe("Container", () => {
       expect(result).toBeInstanceOf(Dependent);
       expect(result.item).toBeInstanceOf(Item);
     });
+
+    it ("can resolve a singleton", () => {
+      subject.register('item', () => { return new Item() }).asSingleton();
+
+      result = subject.resolve('item')
+      expect(result).toBe(subject.resolve('item'));
+    });
   });
 });
