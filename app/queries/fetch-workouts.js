@@ -6,6 +6,10 @@ export default class FetchWorkouts {
     this.api = api;
   }
 
+  subscribeTo(eventAggregator) {
+    eventAggregator.subscribe('FETCH_WORKOUTS', this);
+  }
+
   notify(event) {
     this.api.get(this.onResponse.bind(this));
   }

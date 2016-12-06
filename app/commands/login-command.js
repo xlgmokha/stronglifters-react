@@ -8,6 +8,10 @@ export default class LoginCommand {
     this.storage = storage;
   }
 
+  subscribeTo(eventAggregator) {
+    eventAggregator.subscribe('LOGIN', this);
+  }
+
   notify(event) {
     let body = { username: event.username, password: event.password };
     this.api.post(body, this.onResponse.bind(this));
