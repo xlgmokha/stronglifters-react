@@ -1,9 +1,8 @@
 import EventAggregator from '../infrastructure/event-aggregator';
-import FetchWorkouts from '../queries/fetch-workouts';
 import Registry from '../infrastructure/registry';
 import Router from '../infrastructure/router'
-
 import * as commands from '../commands';
+import * as queries from '../queries';
 
 export default class WireUpComponentsInto {
   constructor(registry = new Registry()) {
@@ -38,10 +37,12 @@ export default class WireUpComponentsInto {
   }
 
   registerQueriesInto(registry) {
-    registry.register('query', (container) => {
-      return new FetchWorkouts(container.resolve('eventAggregator'));
-    }).asSingleton();
-
+    for (var query in queries) {
+      console.log(`registering: ${query}`);
+      registry.register('query', (container) => {
+        return new queries[query](container.resolve('eventAggregator'));
+      }).asSingleton();
+    }
     registry.resolveAll("query").forEach((query) => {
       query.subscribeTo(registry.resolve('eventAggregator'));
     });
