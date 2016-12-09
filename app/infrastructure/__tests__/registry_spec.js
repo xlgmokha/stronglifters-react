@@ -15,13 +15,13 @@ describe("Registry", () => {
   });
 
   describe("#resolve", () => {
-    it("can resolve an instance", () => {
+    it("resolves an instance", () => {
       subject.register('item', () => { return new Item() })
 
       expect(subject.resolve('item')).toBeInstanceOf(Item);
     });
 
-    it ("can resolve an instance with a dependency", function() {
+    it ("resolves an instance with a dependency", function() {
       subject.register('item', () => { return new Item() });
       subject.register('dependent', (container) => {
         return new Dependent(container.resolve('item'));
@@ -32,7 +32,7 @@ describe("Registry", () => {
       expect(result.item).toBeInstanceOf(Item);
     });
 
-    it ("can resolve a singleton", () => {
+    it ("resolves a singleton", () => {
       subject.register('item', () => { return new Item() }).asSingleton();
 
       let result = subject.resolve('item')
