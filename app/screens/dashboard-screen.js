@@ -16,15 +16,16 @@ export default class DashboardScreen extends ApplicationComponent {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text>Welcome back {this.props.username}!</Text>
         <Button onPress={this.loadWorkouts.bind(this)} title="Reload" />
         <Button onPress={this.onHistory.bind(this)} title="History" />
-        <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(row) => <Workout {...row} />}
+          enableEmptySections={true}
           />
+        <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
         <Button onPress={this.onLogout.bind(this)} title="Logout" />
       </View>
     );
