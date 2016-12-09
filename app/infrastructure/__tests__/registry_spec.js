@@ -1,6 +1,13 @@
 import Registry from '../registry';
 
 describe("Registry", () => {
+  class Item { }
+  class Dependent {
+    constructor(item) {
+      this.item = item;
+    }
+  }
+
   let subject = null;
 
   beforeEach(() => {
@@ -8,13 +15,6 @@ describe("Registry", () => {
   });
 
   describe("#resolve", () => {
-    class Item { }
-    class Dependent {
-      constructor(item) {
-        this.item = item;
-      }
-    }
-
     it("can resolve an instance", () => {
       subject.register('item', () => { return new Item() })
 
@@ -51,6 +51,19 @@ describe("Registry", () => {
       expect(results.length).toEqual(2);
       expect(results[0]).toEqual("0");
       expect(results[1]).toEqual("1");
+    });
+  });
+
+
+  describe("#build", () => {
+    it ("resolves the constructor dependencies", () => {
+      var item = new Item();
+      subject.register('item', () => item);
+      subject.register('dependent', Dependent);
+
+      let result = subject.build('dependent');
+      expect(result).toBeInstanceOf(Dependent);
+      expect(result.item).toEqual(item);
     });
   });
 });
