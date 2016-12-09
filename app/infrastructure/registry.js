@@ -1,27 +1,15 @@
-export class Registration {
-  constructor(key, factory) {
-    this.key = key;
+export class Resolver {
+  constructor(factory) {
     this.factory = factory;
   }
 
-  create(container) {
+  resolveWith(container) {
     if (this.isConstructor()) {
       return this.resolveDependenciesUsing(container);
     }
     else {
       return this.factory(container);
     }
-  }
-
-  asSingleton() {
-    let originalFactory = this.factory;
-    let item = null;
-    this.factory = (container) => {
-      if (item == null) {
-        item = originalFactory(container);
-      }
-      return item;
-    };
   }
 
   parseConstructor(item) {
@@ -38,6 +26,28 @@ export class Registration {
     let parameters = this.parseConstructor(this.factory).slice(2);
     let dependencies = parameters.map((parameter) => container.resolve(parameter));
     return new this.factory(...dependencies);
+  }
+}
+
+export class Registration {
+  constructor(key, factory) {
+    this.key = key;
+    this.factory = factory;
+  }
+
+  create(container) {
+    return new Resolver(this.factory).resolveWith(container);
+  }
+
+  asSingleton() {
+    let originalFactory = this.factory;
+    let item = null;
+    this.factory = (container) => {
+      if (item == null) {
+        item = new Resolver(originalFactory).resolveWith(container);
+      }
+      return item;
+    };
   }
 }
 
@@ -61,9 +71,5 @@ export default class Registry {
 
   resolveAll(key) {
     return this.registrations[key].map(registration => registration.create(this));
-  }
-
-  build(key) {
-    return this.registrations[key][0].create(this);
   }
 }

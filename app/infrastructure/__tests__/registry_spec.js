@@ -38,6 +38,27 @@ describe("Registry", () => {
       let result = subject.resolve('item')
       expect(result).toBe(subject.resolve('item'));
     });
+
+    it ("resolves the constructor dependencies", () => {
+      var item = new Item();
+      subject.register('item', () => item);
+      subject.register('dependent', Dependent);
+
+      let result = subject.resolve('dependent');
+      expect(result).toBeInstanceOf(Dependent);
+      expect(result.item).toEqual(item);
+    })
+
+    it ("resolves constructor dependencies for a singleton", function() {
+      var item = new Item();
+      subject.register('item', () => item);
+      subject.register('dependent', Dependent).asSingleton();
+
+      let result = subject.resolve('dependent');
+      let other = subject.resolve('dependent');
+
+      expect(result).toBe(other);
+    });
   });
 
   describe("#resolveAll", () => {
@@ -51,19 +72,6 @@ describe("Registry", () => {
       expect(results.length).toEqual(2);
       expect(results[0]).toEqual("0");
       expect(results[1]).toEqual("1");
-    });
-  });
-
-
-  describe("#build", () => {
-    it ("resolves the constructor dependencies", () => {
-      var item = new Item();
-      subject.register('item', () => item);
-      subject.register('dependent', Dependent);
-
-      let result = subject.build('dependent');
-      expect(result).toBeInstanceOf(Dependent);
-      expect(result.item).toEqual(item);
     });
   });
 });
