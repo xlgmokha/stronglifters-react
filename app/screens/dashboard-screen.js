@@ -18,21 +18,24 @@ export default class DashboardScreen extends ApplicationComponent {
     return (
       <View style={{flex: 1}}>
         <Text>Welcome back {this.props.username}!</Text>
-        <Button onPress={this.loadWorkouts.bind(this)} title="Reload" />
-        <Button onPress={this.onHistory.bind(this)} title="History" />
-        <ListView
-          contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
-          renderRow={(row) => <Workout {...row} />}
-          enableEmptySections={true}
-          />
-        <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
-        <Button onPress={this.onLogout.bind(this)} title="Logout" />
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          <Button onPress={this.onHistory.bind(this)} title="History" />
+          <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
+          <Button onPress={this.onLogout.bind(this)} title="Logout" />
+        </View>
+        <View>
+          <ListView
+            contentContainerStyle={styles.list}
+            dataSource={this.state.dataSource}
+            renderRow={(row) => <Workout {...row} />}
+            enableEmptySections={true}
+            />
+        </View>
       </View>
     );
   }
 
-  loadWorkouts() {
+  onHistory() {
     this.publish({event: 'FETCH_WORKOUTS'});
   }
 
@@ -41,10 +44,6 @@ export default class DashboardScreen extends ApplicationComponent {
       case "FETCHED_WORKOUTS":
         this.setState({ dataSource: this.mapAll(event.workouts) });
     }
-  }
-
-  onHistory() {
-    console.log("load previous workouts");
   }
 
   onStartWorkout() {
@@ -68,25 +67,4 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
-  row: {
-    justifyContent: 'center',
-    padding: 5,
-    margin: 10,
-    width: 100,
-    height: 100,
-    backgroundColor: '#F6F6F6',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#CCC'
-  },
-  thumb: {
-    width: 64,
-    height: 64
-  },
-  text: {
-    flex: 1,
-    marginTop: 5,
-    fontWeight: 'bold'
-  }
 });

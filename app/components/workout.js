@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import Exercise from './exercise';
+import moment from 'moment';
 
 export default class Workout extends Component {
   render() {
     //{this.exercisesFrom(this.props.exercises)}
     return (
-      <TouchableHighlight onPress={() => this.pressRow()} underlayColor='rgba(0,0,0,0)'>
+      <TouchableHighlight onPress={this.pressRow.bind(this)} underlayColor='rgba(0,0,0,0)'>
         <View>
           <View style={styles.row}>
             <Text style={styles.text}>
@@ -24,7 +25,10 @@ export default class Workout extends Component {
   }
 
   rowText() {
-    return `${this.props.routine_name} ${this.props.body_weight.amount} lbs ${this.props.occurred_at}`;
+    const date = moment(this.props.occurred_at).format('MMM Do YY');
+    const text = `${this.props.routine_name} ${this.props.body_weight.amount} lbs ${date}`;
+    console.log(text);
+    return text;
   }
 
   pressRow() {
