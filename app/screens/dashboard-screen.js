@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, ListView } from 'react-native';
+import { View, Text, Button, ListView, StyleSheet } from 'react-native';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
 import Workout from '../components/workout';
@@ -21,6 +21,7 @@ export default class DashboardScreen extends ApplicationComponent {
         <Button onPress={this.loadWorkouts.bind(this)} title="Reload" />
         <Button onPress={this.onHistory.bind(this)} title="History" />
         <ListView
+          contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
           renderRow={(row) => <Workout {...row} />}
           enableEmptySections={true}
@@ -61,3 +62,31 @@ export default class DashboardScreen extends ApplicationComponent {
     return this.ds.cloneWithRows(workouts);
   }
 }
+var styles = StyleSheet.create({
+  list: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  row: {
+    justifyContent: 'center',
+    padding: 5,
+    margin: 10,
+    width: 100,
+    height: 100,
+    backgroundColor: '#F6F6F6',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#CCC'
+  },
+  thumb: {
+    width: 64,
+    height: 64
+  },
+  text: {
+    flex: 1,
+    marginTop: 5,
+    fontWeight: 'bold'
+  }
+});
