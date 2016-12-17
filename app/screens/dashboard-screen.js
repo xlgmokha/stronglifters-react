@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, StyleSheet } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
@@ -8,10 +7,9 @@ import Workout from '../components/workout';
 export default class DashboardScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
-    this.ds = new ListView.DataSource({ rowHasChanged: (row, other) => row['title'] != other['title'] });
     this.state = {
-      dataSource: this.mapAll([]),
       eventsOfInterest: ['FETCHED_WORKOUTS'],
+      workouts: [],
     };
   }
 
@@ -22,12 +20,7 @@ export default class DashboardScreen extends ApplicationComponent {
           <Title>Stronglifters {this.props.username}</Title>
         </Header>
         <Content>
-          <ListView
-            contentContainerStyle={styles.list}
-            dataSource={this.state.dataSource}
-            renderRow={(row) => <Workout {...row} />}
-            enableEmptySections={true}
-            />
+          {this.state.workouts.map(workout => <Workout key={workout.id} {...workout} />)}
         </Content>
         <Footer>
           <FooterTab>
@@ -53,7 +46,7 @@ export default class DashboardScreen extends ApplicationComponent {
   notify(event) {
     switch(event.event) {
       case "FETCHED_WORKOUTS":
-        this.setState({ dataSource: this.mapAll(event.workouts) });
+        this.setState({ workouts: event.workouts });
     }
   }
 
@@ -67,15 +60,4 @@ export default class DashboardScreen extends ApplicationComponent {
     storage.delete('username');
     this.props.navigator.pop();
   }
-
-  mapAll(workouts) {
-    return this.ds.cloneWithRows(workouts);
-  }
 }
-var styles = StyleSheet.create({
-  list: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-});
