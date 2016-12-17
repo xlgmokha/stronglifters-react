@@ -15,7 +15,7 @@ export default class DashboardScreen extends ApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.publish({event: 'FETCH_WORKOUTS'});
+    this.onLoadHistory();
   }
 
   render() {
@@ -29,16 +29,23 @@ export default class DashboardScreen extends ApplicationComponent {
         </Content>
         <Footer>
           <FooterTab>
+            <Button transparent active onPress={this.onLoadHistory.bind(this)}>
+              <Icon name='ios-apps-outline' />
+            </Button>
             <Button transparent onPress={this.onStartWorkout.bind(this)}>
-              <Icon name='ios-call' />
+              <Icon name='ios-camera-outline' />
             </Button>
             <Button transparent onPress={this.onLogout.bind(this)}>
-              <Icon name='ios-call' />
+              <Icon name='ios-compass' />
             </Button>
           </FooterTab>
         </Footer>
       </Container>
     );
+  }
+
+  onLoadHistory() {
+    this.publish({event: 'FETCH_WORKOUTS'});
   }
 
   notify(event) {

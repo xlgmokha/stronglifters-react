@@ -6,12 +6,17 @@ export default class Exercise extends Component {
     return (
       <CardItem>
         <Text>{this.props.name}</Text>
-        {this.props.sets.map((set) => <CardItem key={set.id}><Text>{this.summaryFor(set)}</Text></CardItem>)}
+        {this.workSets().map((set) => <CardItem key={set.id}><Text note>{this.summaryFor(set)}</Text></CardItem>)}
       </CardItem>
     );
   }
 
+  workSets() {
+    return this.props.sets.filter((set) => set.type == "WorkSet");
+  }
+
   summaryFor(set) {
-    return `${set.type} ${set.actual_repetitions}/${set.target_repetitions} @ ${set.target_weight}`;
+    let actual_repetitions = set.actual_repetitions || 0;
+    return `${actual_repetitions}/${set.target_repetitions} @ ${set.target_weight}`;
   }
 }
