@@ -30,7 +30,7 @@ export default class DashboardScreen extends ApplicationComponent {
         <Footer>
           <FooterTab>
             <Button transparent active onPress={this.onLoadHistory.bind(this)}>
-              <Icon name='ios-apps-outline' />
+              <Icon name='ios-home' />
             </Button>
             <Button transparent onPress={this.onStartWorkout.bind(this)}>
               <Icon name='ios-camera-outline' />
