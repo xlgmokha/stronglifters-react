@@ -5,23 +5,23 @@ import moment from 'moment';
 
 export default class Workout extends Component {
   render() {
-    //{this.exercisesFrom(this.props.exercises)}
     return (
       <Card>
         <CardItem>
           <Text>
-            {this.rowText()}
+            {this.rowHeader()}
           </Text>
+          {this.exercisesFrom(this.props.exercises)}
         </CardItem>
       </Card>
     )
   }
 
   exercisesFrom(exercises) {
-    return exercises.map(exercise => <Exercise {...exercise} />)
+    return exercises.map(exercise => <Exercise key={exercise.id} {...exercise} />)
   }
 
-  rowText() {
+  rowHeader() {
     const date = moment(this.props.occurred_at).format('MMM Do YY');
     const text = `${this.props.routine_name} ${this.props.body_weight.amount} lbs ${date}`;
     console.log(text);

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { CardItem, Text } from 'native-base';
 
 export default class Exercise extends Component {
   render() {
-    return(
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', width: 350}}>
-        <Text>{this.props.name}</Text>
-        <Text>{this.props.sets.map(set => set.actual_repetitions).join(",")}</Text>
-      </View>
+    return (
+      <CardItem>
+        <Text>{this.props.name} {this.actualReps()}</Text>
+      </CardItem>
     );
+  }
+
+  actualReps(set) {
+    return this.props.sets.map((set) => set.actual_repetitions).filter((rep) => rep).join("/");
   }
 }
