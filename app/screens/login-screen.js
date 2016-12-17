@@ -17,6 +17,10 @@ export default class LoginScreen extends ApplicationComponent {
     };
   }
 
+  componentDidMount() {
+    this.notify({username: 'mokha'}); // TODO:: REMOVE
+  }
+
   render() {
     return (
       <View style={styles.container}>

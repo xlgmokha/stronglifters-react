@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, ListView, StyleSheet } from 'react-native';
+import { View, Text, ListView, StyleSheet } from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
 import Workout from '../components/workout';
@@ -16,22 +17,32 @@ export default class DashboardScreen extends ApplicationComponent {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Text>Welcome back {this.props.username}!</Text>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Button onPress={this.onHistory.bind(this)} title="History" />
-          <Button onPress={this.onStartWorkout.bind(this)} title="Start Workout" />
-          <Button onPress={this.onLogout.bind(this)} title="Logout" />
-        </View>
-        <View>
+      <Container>
+        <Header>
+          <Title>Stronglifters {this.props.username}</Title>
+        </Header>
+        <Content>
           <ListView
             contentContainerStyle={styles.list}
             dataSource={this.state.dataSource}
             renderRow={(row) => <Workout {...row} />}
             enableEmptySections={true}
             />
-        </View>
-      </View>
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button transparent onPress={this.onHistory.bind(this)}>
+              <Icon name='ios-call' />
+            </Button>
+            <Button transparent onPress={this.onStartWorkout.bind(this)}>
+              <Icon name='ios-call' />
+            </Button>
+            <Button transparent onPress={this.onLogout.bind(this)}>
+              <Icon name='ios-call' />
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 
