@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
-import LoginScreen from '../screens/login-screen';
-import WireUpComponentsInto from '../boot/wire-up-components-into';
+import LoginScreen from './screens/login-screen';
+import WireUpComponentsInto from './boot/wire-up-components-into';
 
-export default class ApplicationShell extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.registry = new WireUpComponentsInto().run();
