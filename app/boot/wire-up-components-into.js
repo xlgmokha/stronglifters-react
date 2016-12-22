@@ -19,8 +19,8 @@ export default class WireUpComponentsInto {
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
-    this.registry.register('sessionsApi', () => new Api('/sessions')).asSingleton();
-    this.registry.register('workoutsApi', () => new Api('/workouts')).asSingleton();
+    this.registry.register('sessionsApi', (container) => new Api('/sessions', container.resolve('applicationStorage'))).asSingleton();
+    this.registry.register('workoutsApi', (container) => new Api('/workouts', container.resolve('applicationStorage'))).asSingleton();
     this.registerSubscribers(commands);
     this.registerSubscribers(queries);
     return this.registry;
