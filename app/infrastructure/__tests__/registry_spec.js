@@ -7,6 +7,12 @@ describe("Registry", () => {
       this.item = item;
     }
   }
+  class VeryDependent {
+    constructor(item, dependent) {
+      this.item = item;
+      this.dependent = dependent;
+    }
+  }
 
   let subject = null;
 
@@ -43,9 +49,11 @@ describe("Registry", () => {
       var item = new Item();
       subject.register('item', () => item);
       subject.register('dependent', Dependent);
+      subject.register('veryDependent', VeryDependent);
 
-      let result = subject.resolve('dependent');
-      expect(result).toBeInstanceOf(Dependent);
+      let result = subject.resolve('veryDependent');
+      expect(result).toBeInstanceOf(VeryDependent);
+      expect(result.dependent).toBeInstanceOf(Dependent);
       expect(result.item).toEqual(item);
     })
 
