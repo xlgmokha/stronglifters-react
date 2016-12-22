@@ -21,28 +21,18 @@ export default class WireUpComponentsInto {
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
     this.registry.register('sessionsApi', () => new Api('/sessions')).asSingleton();
     this.registry.register('workoutsApi', () => new Api('/workouts')).asSingleton();
-    this.registerCommandsInto(this.registry);
-    this.registerQueriesInto(this.registry);
+    this.registerSubscribers(commands);
+    this.registerSubscribers(queries);
     return this.registry;
   }
 
-  registerCommandsInto(registry) {
-    for (let command in commands) {
-      console.log(`registering: ${command}`);
-      registry.register('command', commands[command]).asSingleton();
+  registerSubscribers(subscribers) {
+    for (let subscriber in subscribers) {
+      console.log(`registering: ${subscriber}`);
+      this.registry.register('subscriber', subscribers[subscriber]).asSingleton();
     }
-    registry.resolveAll("command").forEach((command) => {
-      command.subscribeTo(registry.resolve('eventAggregator'));
-    });
-  }
-
-  registerQueriesInto(registry) {
-    for (let query in queries) {
-      console.log(`registering: ${query}`);
-      registry.register('query', queries[query]).asSingleton();
-    }
-    registry.resolveAll("query").forEach((query) => {
-      query.subscribeTo(registry.resolve('eventAggregator'));
+    this.registry.resolveAll("subscriber").forEach((subscriber) => {
+      subscriber.subscribeTo(this.registry.resolve('eventAggregator'));
     });
   }
 }
