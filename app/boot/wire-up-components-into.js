@@ -10,10 +10,7 @@ export default class WireUpComponentsInto {
   }
 
   run() {
-    this.registry.register('eventAggregator', (container) => {
-      return new EventAggregator();
-    }).asSingleton();
-
+    this.registry.register('eventAggregator', EventAggregator).asSingleton();
     this.registry.register('router', (container) => {
       return new Router({
         eventAggregator: container.resolve('eventAggregator')
@@ -25,7 +22,7 @@ export default class WireUpComponentsInto {
   }
 
   registerCommandsInto(registry) {
-    for (var command in commands) {
+    for (let command in commands) {
       console.log(`registering: ${command}`);
       registry.register('command', (container) => {
         return new commands[command](container.resolve('eventAggregator'));
@@ -37,7 +34,7 @@ export default class WireUpComponentsInto {
   }
 
   registerQueriesInto(registry) {
-    for (var query in queries) {
+    for (let query in queries) {
       console.log(`registering: ${query}`);
       registry.register('query', (container) => {
         return new queries[query](container.resolve('eventAggregator'));

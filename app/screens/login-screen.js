@@ -5,6 +5,7 @@ import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
 import ApplicationComponent from '../components/application-component'
+import * as events from '../services/events';
 
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
@@ -14,13 +15,13 @@ export default class LoginScreen extends ApplicationComponent {
     super(props)
     this.state = {
       account: { username: 'mokha', password: 'password' },
-      eventsOfInterest: ['LOGGED_IN'],
+      eventsOfInterest: [events.LOGGED_IN],
     };
   }
 
   componentDidMount() {
     super.componentDidMount();
-    this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
+    //this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
   }
 
   render() {
@@ -61,12 +62,12 @@ export default class LoginScreen extends ApplicationComponent {
 
   onLogin() {
     let account = this.refs.form.getValue();
-    this.setState({isLoading: true});
     this.publish({
-      event: 'LOGIN',
+      event: events.LOGIN,
       username: account.username,
       password: account.password
     });
+    this.setState({isLoading: true});
   }
 
   onChange(account) {
