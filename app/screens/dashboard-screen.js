@@ -4,12 +4,13 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spi
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
 import Workout from '../components/workout';
+import * as events from '../services/events';
 
 export default class DashboardScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
     this.state = {
-      eventsOfInterest: ['FETCHED_WORKOUTS'],
+      eventsOfInterest: [events.FETCHED_WORKOUTS],
       workouts: [],
     };
   }
@@ -52,12 +53,12 @@ export default class DashboardScreen extends ApplicationComponent {
 
   onLoadHistory() {
     this.setState({isLoading: true})
-    this.publish({event: 'FETCH_WORKOUTS'});
+    this.publish({event: events.FETCH_WORKOUTS});
   }
 
   notify(event) {
     switch(event.event) {
-      case "FETCHED_WORKOUTS":
+      case events.FETCHED_WORKOUTS:
         this.setState({
           isLoading: false,
           workouts: event.workouts
@@ -70,7 +71,7 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   onLogout() {
-    this.publish({event: 'LOGOUT'})
+    this.publish({event: events.LOGOUT})
     this.props.navigator.pop();
   }
 

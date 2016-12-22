@@ -1,8 +1,8 @@
 import EventAggregator from '../infrastructure/event-aggregator';
 import Registry from '../infrastructure/registry';
 import Router from '../infrastructure/router'
-import * as commands from '../commands';
-import * as queries from '../queries';
+import * as commands from '../services/commands';
+import * as queries from '../services/queries';
 
 export default class WireUpComponentsInto {
   constructor(registry = new Registry()) {

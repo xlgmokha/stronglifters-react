@@ -1,4 +1,5 @@
-import Api from '../infrastructure/api';
+import Api from '../../infrastructure/api';
+import * as events from '../events';
 
 export default class FetchWorkouts {
   constructor(eventAggregator, api = new Api('/workouts')) {
@@ -7,7 +8,7 @@ export default class FetchWorkouts {
   }
 
   subscribeTo(eventAggregator) {
-    eventAggregator.subscribe('FETCH_WORKOUTS', this);
+    eventAggregator.subscribe(events.FETCH_WORKOUTS, this);
   }
 
   notify(event) {
@@ -16,7 +17,7 @@ export default class FetchWorkouts {
 
   onResponse(json) {
     this.eventAggregator.publish({
-      event: 'FETCHED_WORKOUTS',
+      event: events.FETCHED_WORKOUTS,
       workouts: json.workouts || []
     });
   }
