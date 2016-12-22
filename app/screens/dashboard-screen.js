@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner } from 'native-base';
-import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
 import Workout from '../components/workout';
 import * as events from '../services/events';

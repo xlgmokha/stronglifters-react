@@ -1,5 +1,8 @@
+import ApplicationStorage from '../../infrastructure/application-storage';
+
 export default class LogoutCommand {
-  constructor(applicationStorage) {
+  constructor(eventAggregator, applicationStorage = new ApplicationStorage()) {
+    this.eventAggregator = eventAggregator;
     this.applicationStorage = applicationStorage;
   }
 
