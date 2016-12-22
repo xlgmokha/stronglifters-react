@@ -1,8 +1,10 @@
+import * as commands from '../services/commands';
+import * as queries from '../services/queries';
+import Api from '../infrastructure/api';
+import ApplicationStorage from '../infrastructure/application-storage';
 import EventAggregator from '../infrastructure/event-aggregator';
 import Registry from '../infrastructure/registry';
 import Router from '../infrastructure/router'
-import * as commands from '../services/commands';
-import * as queries from '../services/queries';
 
 export default class WireUpComponentsInto {
   constructor(registry = new Registry()) {
@@ -16,6 +18,10 @@ export default class WireUpComponentsInto {
         eventAggregator: container.resolve('eventAggregator')
       });
     }).asSingleton();
+    this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
+    this.registry.register('sessionsApi', () => {
+      return new Api('/sessions');
+    }).asSingleton();
     this.registerCommandsInto(this.registry);
     this.registerQueriesInto(this.registry);
     return this.registry;
@@ -24,9 +30,7 @@ export default class WireUpComponentsInto {
   registerCommandsInto(registry) {
     for (let command in commands) {
       console.log(`registering: ${command}`);
-      registry.register('command', (container) => {
-        return new commands[command](container.resolve('eventAggregator'));
-      }).asSingleton();
+      registry.register('command', commands[command]).asSingleton();
     }
     registry.resolveAll("command").forEach((command) => {
       command.subscribeTo(registry.resolve('eventAggregator'));

@@ -1,13 +1,13 @@
-import ApplicationStorage from '../../infrastructure/application-storage';
+import * as events from '../events';
 
 export default class LogoutCommand {
-  constructor(eventAggregator, applicationStorage = new ApplicationStorage()) {
+  constructor(eventAggregator, applicationStorage) {
     this.eventAggregator = eventAggregator;
     this.applicationStorage = applicationStorage;
   }
 
   subscribeTo(eventAggregator) {
-    eventAggregator.subscribe('LOGOUT', this);
+    eventAggregator.subscribe(events.LOGOUT, this);
   }
 
   notify(event) {
