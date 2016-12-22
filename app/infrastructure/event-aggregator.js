@@ -4,13 +4,13 @@ export default class EventAggregator {
   }
 
   subscribe(event, subscriber) {
-    this._subscriptionsFor(event).push(subscriber);
+    this._subscriptionsFor(event).add(subscriber);
   }
 
   publish(event) {
+    console.log("publishing:");
+    console.dir(event);
     this._subscriptionsFor(event.event).forEach((x) => {
-      console.log("publishing:");
-      console.dir(event);
       console.dir(x);
       x.notify(event);
     });
@@ -19,14 +19,16 @@ export default class EventAggregator {
   unsubscribe(subscriber) {
     for (var event in this.subscriptions) {
       let items = this._subscriptionsFor(event)
-      items.splice(items.indexOf(subscriber));
+      if (items.has(subscriber)) {
+        items.delete(subscriber);
+      }
     }
   }
 
   _subscriptionsFor(event) {
     let key = event;
     if (!this.subscriptions.hasOwnProperty(key)) {
-      this.subscriptions[key] = [];
+      this.subscriptions[key] = new Set();
     }
     return this.subscriptions[key];
   }

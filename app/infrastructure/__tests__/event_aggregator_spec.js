@@ -17,11 +17,15 @@ describe("EventAggregator", () => {
   describe("#publish", () => {
     it ("publishes the event to all interested subscribers", () => {
       let subscriber = new TestSubscriber();
+      let otherSubscriber = new TestSubscriber();
       subject.subscribe('LOGGED_IN', subscriber);
+      subject.subscribe('LOGGED_IN', otherSubscriber);
       subject.publish({ event: 'LOGGED_IN', username: 'blah' })
 
       expect(subscriber.called).toBeTruthy();
       expect(subscriber.calledWith.username).toEqual('blah');
+      expect(otherSubscriber.called).toBeTruthy();
+      expect(otherSubscriber.calledWith.username).toEqual('blah');
     });
 
     it ("does not publish events to subscribers interested in other events", function() {
@@ -37,12 +41,19 @@ describe("EventAggregator", () => {
   describe("#unsubscribe", () => {
     it ("unsubscribes a listener", () => {
       let subscriber = new TestSubscriber();
+      let otherSubscriber = new TestSubscriber();
       subject.subscribe('LOGGED_IN', subscriber);
+      subject.subscribe('LOGGED_IN', otherSubscriber);
+
       subject.unsubscribe(subscriber);
+
       subject.publish({ event: 'LOGGED_IN', username: 'blah' })
 
-      expect(subscriber.called).toBeFalsy;
+      expect(subscriber.called).toBeFalsy();
       expect(subscriber.calledWith).toBeUndefined();
+
+      expect(otherSubscriber.called).toBeTruthy();
+      expect(otherSubscriber.calledWith).toBeTruthy();
     });
   });
 });
