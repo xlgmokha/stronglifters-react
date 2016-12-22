@@ -19,9 +19,8 @@ export default class WireUpComponentsInto {
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
-    this.registry.register('sessionsApi', () => {
-      return new Api('/sessions');
-    }).asSingleton();
+    this.registry.register('sessionsApi', () => new Api('/sessions')).asSingleton();
+    this.registry.register('workoutsApi', () => new Api('/workouts')).asSingleton();
     this.registerCommandsInto(this.registry);
     this.registerQueriesInto(this.registry);
     return this.registry;
@@ -40,9 +39,7 @@ export default class WireUpComponentsInto {
   registerQueriesInto(registry) {
     for (let query in queries) {
       console.log(`registering: ${query}`);
-      registry.register('query', (container) => {
-        return new queries[query](container.resolve('eventAggregator'));
-      }).asSingleton();
+      registry.register('query', queries[query]).asSingleton();
     }
     registry.resolveAll("query").forEach((query) => {
       query.subscribeTo(registry.resolve('eventAggregator'));

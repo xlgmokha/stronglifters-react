@@ -1,10 +1,9 @@
-import Api from '../../infrastructure/api';
 import * as events from '../events';
 
 export default class FetchWorkouts {
-  constructor(eventAggregator, api = new Api('/workouts')) {
+  constructor(eventAggregator, workoutsApi) {
     this.eventAggregator = eventAggregator;
-    this.api = api;
+    this.api = workoutsApi;
   }
 
   subscribeTo(eventAggregator) {
