@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner } from 'native-base';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
 import Workout from '../components/workout';
@@ -19,13 +19,14 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   render() {
+    let content = this.state.isLoading ? <Spinner /> : this.state.workouts.map(workout => <Workout key={workout.id} {...workout} />);
     return (
       <Container>
         <Header>
           <Title>Stronglifters {this.props.username}</Title>
         </Header>
         <Content>
-          {this.state.workouts.map(workout => <Workout key={workout.id} {...workout} />)}
+          {content}
         </Content>
         <Footer>
           <FooterTab>
@@ -45,13 +46,17 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   onLoadHistory() {
+    this.setState({isLoading: true})
     this.publish({event: 'FETCH_WORKOUTS'});
   }
 
   notify(event) {
     switch(event.event) {
       case "FETCHED_WORKOUTS":
-        this.setState({ workouts: event.workouts });
+        this.setState({
+          isLoading: false,
+          workouts: event.workouts
+        });
     }
   }
 
