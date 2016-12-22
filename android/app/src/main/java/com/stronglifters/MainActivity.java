@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.stronglifters.app;
 
 import com.facebook.react.ReactActivity;
 
