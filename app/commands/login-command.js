@@ -21,8 +21,7 @@ export default class LoginCommand {
     this.storage.save('authentication_token', json.authentication_token);
     this.eventAggregator.publish({
       event: 'LOGGED_IN',
-      username: json.username,
-      authentication_token: json.authentication_token,
+      ...json
     });
   }
 }
