@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
+import { Container, Content, Spinner } from 'native-base';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
@@ -18,23 +19,37 @@ export default class LoginScreen extends ApplicationComponent {
   }
 
   componentDidMount() {
-    this.notify({username: 'mokha'}); // TODO:: REMOVE
+    super.componentDidMount();
+    //this.notify({username: 'mokha'}); // TODO:: REMOVE
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View>
+      <Container>{this.content()}</Container>
+    )
+  }
+
+  content() {
+    if (this.state.isLoading) {
+      return (
+        <Content>
+          <Spinner />
+        </Content>
+      );
+    }
+    else {
+      return (
+        <Content>
           <Form ref="form"
             type={Account}
             onChange={this.onChange.bind(this)}
             value={this.state.account}
             options={this.formOptions()}
           />
-        </View>
-        <Button onPress={this.onLogin.bind(this)} title="Login" />
-      </View>
-    )
+          <Button onPress={this.onLogin.bind(this)} title="Login" />
+        </Content>
+      );
+    }
   }
 
   formOptions() {
@@ -46,6 +61,7 @@ export default class LoginScreen extends ApplicationComponent {
 
   onLogin() {
     let account = this.refs.form.getValue();
+    this.setState({isLoading: true});
     this.publish({
       event: 'LOGIN',
       username: account.username,
