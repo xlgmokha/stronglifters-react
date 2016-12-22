@@ -23,7 +23,7 @@ export class Resolver {
   }
 
   resolveDependenciesUsing(container) {
-    let parameters = this.parseConstructor(this.factory).slice(2);
+    let parameters = this.parseConstructor(this.factory).slice(2).filter(Boolean);
     let dependencies = parameters.map((parameter) => container.resolve(parameter));
     return new this.factory(...dependencies);
   }

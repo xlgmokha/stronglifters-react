@@ -59,6 +59,12 @@ describe("Registry", () => {
 
       expect(result).toBe(other);
     });
+
+    it ("resolves a constructor with zero dependencies", function() {
+      subject.register('item', Item);
+
+      expect(subject.resolve('item')).toBeInstanceOf(Item);
+    });
   });
 
   describe("#resolveAll", () => {
