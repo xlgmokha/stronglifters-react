@@ -74,6 +74,7 @@ export default class LoginScreen extends ApplicationComponent {
   }
 
   notify(event) {
+    this.setState({isLoading: false});
     this.props.navigator.push({
       component: DashboardScreen, params: { username: event.username }
     });
