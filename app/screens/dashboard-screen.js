@@ -25,7 +25,7 @@ export default class DashboardScreen extends ApplicationComponent {
     return (
       <Container>
         <Header>
-          <Title>Stronglifters {this.props.username}</Title>
+          <Title>{this.props.username}</Title>
           <Button transparent rounded>
             <Image source={{uri: gravatarUri}} style={{width: 32, height: 32}} />
           </Button>
@@ -70,9 +70,7 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   onLogout() {
-    const storage = new ApplicationStorage();
-    storage.delete('authentication_token');
-    storage.delete('username');
+    this.publish({event: 'LOGOUT'})
     this.props.navigator.pop();
   }
 
