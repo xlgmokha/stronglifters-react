@@ -20,7 +20,7 @@ export default class LoginScreen extends ApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    //this.notify({username: 'mokha'}); // TODO:: REMOVE
+    this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
   }
 
   render() {
@@ -76,7 +76,7 @@ export default class LoginScreen extends ApplicationComponent {
   notify(event) {
     this.setState({isLoading: false});
     this.props.navigator.push({
-      component: DashboardScreen, params: { username: event.username }
+      component: DashboardScreen, params: { ...event }
     });
   }
 }

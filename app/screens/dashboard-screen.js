@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View, Image } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner } from 'native-base';
 import ApplicationStorage from '../infrastructure/application-storage';
 import ApplicationComponent from '../components/application-component';
@@ -20,10 +21,14 @@ export default class DashboardScreen extends ApplicationComponent {
 
   render() {
     let content = this.state.isLoading ? <Spinner /> : this.state.workouts.map(workout => <Workout key={workout.id} {...workout} />);
+    let gravatarUri = this.gravatarUri();
     return (
       <Container>
         <Header>
           <Title>Stronglifters {this.props.username}</Title>
+          <Button transparent rounded>
+            <Image source={{uri: gravatarUri}} style={{width: 32, height: 32}} />
+          </Button>
         </Header>
         <Content>
           {content}
@@ -65,9 +70,14 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   onLogout() {
-    let storage = new ApplicationStorage();
+    const storage = new ApplicationStorage();
     storage.delete('authentication_token');
     storage.delete('username');
     this.props.navigator.pop();
+  }
+
+  gravatarUri() {
+    const secureHost = "https://secure.gravatar.com/avatar";
+    return `${secureHost}/${this.props.gravatar_id}?s=32&d=mm`;
   }
 }

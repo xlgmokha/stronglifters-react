@@ -24,7 +24,6 @@ export default class Workout extends Component {
   rowHeader() {
     const date = moment(this.props.occurred_at).format('MMM Do YY');
     const text = `${this.props.routine_name} ${this.props.body_weight.amount} lbs ${date}`;
-    console.log(text);
     return text;
   }
 }
