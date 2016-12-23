@@ -1,4 +1,4 @@
-package com.stronglifters.app;
+package com.stronglifters;
 
 import com.facebook.react.ReactActivity;
 
