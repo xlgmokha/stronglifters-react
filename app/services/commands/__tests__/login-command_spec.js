@@ -4,11 +4,13 @@ describe("LoginCommand", () => {
   let subject = null;
   let eventAggregator = null;
   let api = null;
+  let storage = null;
 
   beforeEach(() => {
     api = { post: jest.fn() };
     eventAggregator = { publish: jest.fn() };
-    subject = new LoginCommand(eventAggregator, api);
+    storage = { save: jest.fn() };
+    subject = new LoginCommand(eventAggregator, api, storage);
   });
 
   describe("#notify", () => {
