@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner } from 'native-base';
 import ApplicationComponent from '../components/application-component';
-import Workout from '../components/workout';
+import WorkoutSummary from '../components/workout-summary';
 import * as events from '../services/events';
 
 export default class DashboardScreen extends ApplicationComponent {
@@ -20,7 +20,7 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   render() {
-    let content = this.state.isLoading ? <Spinner /> : this.state.workouts.map(workout => <Workout key={workout.id} {...workout} />);
+    let content = this.state.isLoading ? <Spinner /> : this.state.workouts.map(workout => <WorkoutSummary key={workout.id} {...workout} />);
     let gravatarUri = this.gravatarUri();
     return (
       <Container>

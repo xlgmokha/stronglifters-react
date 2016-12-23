@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardItem, Text } from 'native-base';
 
-export default class Exercise extends Component {
+export default class ExerciseSummary extends Component {
   render() {
     return (
       <CardItem>

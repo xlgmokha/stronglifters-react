@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Card, CardItem, Text } from 'native-base';
-import Exercise from './exercise';
+import ExerciseSummary from './exercise-summary';
 import moment from 'moment';
 
-export default class Workout extends Component {
+export default class WorkoutSummary extends Component {
   render() {
     return (
       <Card>
@@ -18,7 +18,7 @@ export default class Workout extends Component {
   }
 
   exercisesFrom(exercises) {
-    return exercises.map(exercise => <Exercise key={exercise.id} {...exercise} />)
+    return exercises.map(exercise => <ExerciseSummary key={exercise.id} {...exercise} />)
   }
 
   rowHeader() {
