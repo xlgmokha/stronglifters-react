@@ -1,5 +1,6 @@
 import WireUpComponentsInto from '../wire-up-components-into';
 import Registry from '../../infrastructure/registry';
+import * as commands from '../../services/commands';
 
 describe("WireUpComponentsInto", () => {
   let subject = null;
@@ -14,9 +15,8 @@ describe("WireUpComponentsInto", () => {
     it ("registers each command", function() {
       subject.run()
 
-      results = registry.resolveAll('command')
-      expect(results.length).toEqual(1)
-      expect(results[0]).toBeInstanceOf(LoginCommand);
+      results = registry.resolveAll('subscriber')
+      expect(results.length).toEqual(3)
     });
   });
 })

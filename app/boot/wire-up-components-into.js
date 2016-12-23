@@ -28,7 +28,7 @@ export default class WireUpComponentsInto {
 
   registerSubscribers(subscribers) {
     for (let subscriber in subscribers) {
-      console.log(`registering: ${subscriber}`);
+      //console.log(`registering: ${subscriber}`);
       this.registry.register('subscriber', subscribers[subscriber]).asSingleton();
     }
     this.registry.resolveAll("subscriber").forEach((subscriber) => {
