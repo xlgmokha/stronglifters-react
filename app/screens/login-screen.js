@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import { Container, Content, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Spinner } from 'native-base';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
@@ -26,7 +26,12 @@ export default class LoginScreen extends ApplicationComponent {
 
   render() {
     return (
-      <Container>{this.content()}</Container>
+      <Container>
+        <Header>
+          <Title>StrongLifters</Title>
+        </Header>
+        {this.content()}
+      </Container>
     )
   }
 
