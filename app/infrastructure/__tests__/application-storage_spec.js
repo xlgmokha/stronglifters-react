@@ -11,9 +11,9 @@ describe("ApplicationStorage", () => {
     it("can fetch a saved value", () => {
       const username = "mokha";
       subject.save("username", username)
-      expect(
-        subject.fetch("username")
-      ).toEqual(username)
+      subject.fetch("username").then((result) => {
+        expect(result).toEqual(username)
+      });
     });
   });
 });
