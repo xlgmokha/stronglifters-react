@@ -1,15 +1,11 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
-import { Container, Header, Title, Content, Spinner } from 'native-base';
-import Account from '../domain/account'
+import { View } from 'react-native';
+import { Container, Header, Title, Content, Spinner, List, ListItem, InputGroup, Input, Icon, Button, Text } from 'native-base';
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
 import ApplicationComponent from '../components/application-component'
 import Configuration from '../infrastructure/configuration'
 import * as events from '../services/events';
-
-var t = require('tcomb-form-native');
-var Form = t.form.Form;
 
 export default class LoginScreen extends ApplicationComponent {
   constructor(props) {
@@ -48,14 +44,31 @@ export default class LoginScreen extends ApplicationComponent {
     else {
       return (
         <Content>
-          <Form ref="form"
-            type={Account}
-            onChange={this.onChange.bind(this)}
-            value={this.state.account}
-            options={this.formOptions()}
-          />
-          <Button onPress={this.onLogin.bind(this)} title="Login" />
-          <Text>{this.configuration.value_for('API_HOST')}</Text>
+          <List>
+            <ListItem>
+              <InputGroup>
+              <Input inlineLabel 
+                label="Username" 
+                value={this.state.account.username}
+                onChangeText={(text) => this.setState({account: {username: text }})}
+                />
+              </InputGroup>
+            </ListItem>
+            <ListItem>
+              <InputGroup>
+                <Icon name="ios-unlock" />
+                <Input secureTextEntry
+                  label="Password"
+                  value={this.state.account.password}
+                  onChangeText={(text) => this.setState({account: {password: text }})}
+                />
+              </InputGroup>
+            </ListItem>
+          </List>
+          <Button style={{alignSelf: 'center' }} onPress={this.onLogin.bind(this)}>
+            Log In
+          </Button>
+          <Text note>{this.configuration.value_for('API_HOST')}</Text>
         </Content>
       );
     }
@@ -69,7 +82,9 @@ export default class LoginScreen extends ApplicationComponent {
   }
 
   onLogin() {
-    let account = this.refs.form.getValue();
+    let account = this.state.account;
+    console.log("LOGGING IN");
+    console.log(account);
     this.publish({
       event: events.LOGIN,
       username: account.username,

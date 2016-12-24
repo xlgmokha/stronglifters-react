@@ -11,8 +11,7 @@
     "native-base": "^0.5.18",
     "react": "15.4.1",
     "react-native": "0.39.2",
-    "react-native-svg": "^4.4.1",
-    "tcomb-form-native": "^0.6.3"
+    "react-native-svg": "^4.4.1"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
