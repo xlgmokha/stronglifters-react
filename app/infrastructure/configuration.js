@@ -1,11 +1,11 @@
-import Config from 'react-native-config';
-
-var _configuration = {
+var _defaults = {
   development: {
-    API_HOST: 'http://localhost:3000'
+    API_HOST: 'http://localhost:3000',
+    ENV: 'development'
   },
   production: {
-    API_HOST: 'https://www.stronglifters.com'
+    API_HOST: 'https://www.stronglifters.com',
+    ENV: 'production'
   }
 };
 
@@ -15,7 +15,6 @@ export default class Configuration {
   }
 
   value_for(key) {
-    //return Config[key];
-    return _configuration[this.environment][key];
+    return process.env[key] || _defaults[this.environment][key];
   }
 }

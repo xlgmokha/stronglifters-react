@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, Text } from 'react-native';
 import { Container, Header, Title, Content, Spinner } from 'native-base';
 import Account from '../domain/account'
 import Api from '../infrastructure/api'
 import DashboardScreen from './dashboard-screen'
 import ApplicationComponent from '../components/application-component'
+import Configuration from '../infrastructure/configuration'
 import * as events from '../services/events';
 
 var t = require('tcomb-form-native');
@@ -13,6 +14,7 @@ var Form = t.form.Form;
 export default class LoginScreen extends ApplicationComponent {
   constructor(props) {
     super(props)
+    this.configuration = new Configuration('development');
     this.state = {
       account: { username: 'mokha', password: 'password' },
       eventsOfInterest: [events.LOGGED_IN],
@@ -28,7 +30,7 @@ export default class LoginScreen extends ApplicationComponent {
     return (
       <Container>
         <Header>
-          <Title>StrongLifters</Title>
+          <Title>StrongLifters ({this.configuration.value_for('ENV')})</Title>
         </Header>
         {this.content()}
       </Container>
@@ -53,6 +55,7 @@ export default class LoginScreen extends ApplicationComponent {
             options={this.formOptions()}
           />
           <Button onPress={this.onLogin.bind(this)} title="Login" />
+          <Text>{this.configuration.value_for('API_HOST')}</Text>
         </Content>
       );
     }
@@ -86,27 +89,3 @@ export default class LoginScreen extends ApplicationComponent {
     });
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48bbec',
-    borderColor: '#48bbed',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
-});

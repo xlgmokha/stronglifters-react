@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
+    "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "babel-preset-react-native": "1.9.1",
     "jest": "18.0.0",
     "react-test-renderer": "15.4.1"
