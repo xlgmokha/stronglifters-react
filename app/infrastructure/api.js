@@ -1,12 +1,6 @@
-import Config from 'react-native-config';
-
 export default class Api {
-  constructor(url, applicationStorage) {
-    if (url.startsWith('http')) {
-      this.url = url;
-    } else {
-      this.url = `${Config.API_HOST}/api${url}`
-    }
+  constructor(host, url, applicationStorage) {
+    this.url = `${host}/api${url}`
     this.storage = applicationStorage;
   }
 

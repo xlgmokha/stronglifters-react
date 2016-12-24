@@ -2,6 +2,7 @@ import * as commands from '../services/commands';
 import * as queries from '../services/queries';
 import Api from '../infrastructure/api';
 import ApplicationStorage from '../infrastructure/application-storage';
+import Config from 'react-native-config';
 import EventAggregator from '../infrastructure/event-aggregator';
 import Registry from '../infrastructure/registry';
 import Router from '../infrastructure/router'
@@ -19,8 +20,9 @@ export default class WireUpComponentsInto {
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
-    this.registry.register('sessionsApi', (container) => new Api('/sessions', container.resolve('applicationStorage'))).asSingleton();
-    this.registry.register('workoutsApi', (container) => new Api('/workouts', container.resolve('applicationStorage'))).asSingleton();
+    let host = Config.API_HOST;
+    this.registry.register('sessionsApi', (container) => new Api(host, '/sessions', container.resolve('applicationStorage'))).asSingleton();
+    this.registry.register('workoutsApi', (container) => new Api(host, '/workouts', container.resolve('applicationStorage'))).asSingleton();
     this.registerSubscribers(commands);
     this.registerSubscribers(queries);
     return this.registry;
