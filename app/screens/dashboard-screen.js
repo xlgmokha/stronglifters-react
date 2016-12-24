@@ -51,8 +51,9 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   renderWorkouts(workouts) {
+    let renderEach = (workout) => <WorkoutSummary key={workout.id} {...workout} />;
     return (
-      <DeckSwiper dataSource={workouts} renderItem={workout => <WorkoutSummary key={workout.id} {...workout} />} />
+      <DeckSwiper dataSource={workouts} renderItem={renderEach} />
     );
   }
 
