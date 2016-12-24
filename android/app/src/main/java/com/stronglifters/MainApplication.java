@@ -1,4 +1,4 @@
-package com.stronglifters;
+package com.stronglifters.app;
 
 import android.app.Application;
 import android.util.Log;
