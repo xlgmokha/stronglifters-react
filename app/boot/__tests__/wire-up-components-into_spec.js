@@ -1,6 +1,7 @@
-import WireUpComponentsInto from '../wire-up-components-into';
-import Registry from '../../infrastructure/registry';
 import * as commands from '../../services/commands';
+import Api from '../../infrastructure/api';
+import Registry from '../../infrastructure/registry';
+import WireUpComponentsInto from '../wire-up-components-into';
 
 describe("WireUpComponentsInto", () => {
   let subject = null;
@@ -12,11 +13,18 @@ describe("WireUpComponentsInto", () => {
   });
 
   describe("#run", () => {
-    it ("registers each command", function() {
+    beforeEach(() => {
       subject.run()
+    });
 
-      results = registry.resolveAll('subscriber')
-      expect(results.length).toEqual(3)
+    it ("registers each command", function() {
+      results = registry.resolveAll('subscriber');
+      expect(results.length).toEqual(3);
+    });
+
+    it ("can build the api", function() {
+      result = registry.resolve('api');
+      expect(result).toBeInstanceOf(Api);
     });
   });
 })

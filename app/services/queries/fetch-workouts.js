@@ -1,9 +1,9 @@
 import * as events from '../events';
 
 export default class FetchWorkouts {
-  constructor(eventAggregator, workoutsApi) {
+  constructor(eventAggregator, api) {
     this.eventAggregator = eventAggregator;
-    this.api = workoutsApi;
+    this.api = api;
   }
 
   subscribeTo(eventAggregator) {
@@ -11,7 +11,7 @@ export default class FetchWorkouts {
   }
 
   notify(event) {
-    this.api.get(this.onResponse.bind(this));
+    this.api.get('/workouts', this.onResponse.bind(this));
   }
 
   onResponse(json) {

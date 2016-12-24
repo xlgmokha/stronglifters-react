@@ -12,9 +12,9 @@ export class Resolver {
     }
   }
 
-  parseConstructor(item) {
-    let code = item.toString();
-    let regex = /function ([a-zA-Z]*)\((.*)\)\{/;
+  parseConstructor(func) {
+    let code = func.toString();
+    let regex = /function ([a-zA-Z]*)\((.*)\) *\{/;
     return code.match(regex);
   }
 
@@ -66,7 +66,13 @@ export default class Registry {
   }
 
   resolve(key) {
-    return this.registrations[key][0].create(this);
+    try {
+      return this.registrations[key][0].create(this);
+    } catch(error) {
+      console.error(`ERROR: Could Not Resolve ${key}`);
+      console.error(error);
+      throw error;
+    }
   }
 
   resolveAll(key) {

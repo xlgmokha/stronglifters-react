@@ -1,9 +1,9 @@
 import * as events from '../events';
 
 export default class LoginCommand {
-  constructor(eventAggregator, sessionsApi, applicationStorage) {
+  constructor(eventAggregator, api, applicationStorage) {
     this.eventAggregator = eventAggregator;
-    this.api = sessionsApi;
+    this.api = api;
     this.applicationStorage = applicationStorage;
   }
 
@@ -13,7 +13,7 @@ export default class LoginCommand {
 
   notify(event) {
     let body = { username: event.username, password: event.password };
-    this.api.post(body, this.onResponse.bind(this));
+    this.api.post('/sessions', body, this.onResponse.bind(this));
   }
 
   onResponse(json) {
