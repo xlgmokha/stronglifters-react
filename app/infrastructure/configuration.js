@@ -1,5 +1,5 @@
 var _defaults = {
-  API_HOST: 'https://www.stronglifters.com',
+  API_HOST: 'http://192.168.128.6:3000',
   ENV: 'production'
 };
 
