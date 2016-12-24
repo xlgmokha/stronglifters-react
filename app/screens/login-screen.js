@@ -21,7 +21,7 @@ export default class LoginScreen extends ApplicationComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
+    //this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
   }
 
   render() {
