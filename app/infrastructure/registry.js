@@ -23,15 +23,18 @@ export class Resolver {
   }
 
   resolveDependenciesUsing(container) {
-    let parameters = this.parseConstructor(this.factory).slice(2)[0].split(',').filter(Boolean);
-    let dependencies = parameters.map((parameter) => container.resolve(parameter));
+    let ctor = this.parseConstructor(this.factory);
+    console.log(`Building: ${ctor[1]}`);
+    let parameters = ctor.slice(2)[0].split(',').filter(Boolean);
+    let dependencies = parameters.map((parameter) => {
+      return container.resolve(parameter.trim());
+    });
     return new this.factory(...dependencies);
   }
 }
 
 export class Registration {
-  constructor(key, factory) {
-    this.key = key;
+  constructor(factory) {
     this.factory = factory;
   }
 
@@ -60,17 +63,27 @@ export default class Registry {
     if (this.registrations[key] == undefined) {
       this.registrations[key] = [];
     }
-    let registration = new Registration(key, factory);
+    let registration = new Registration(factory);
     this.registrations[key].push(registration);
     return registration;
   }
 
+  isRegistered(key) {
+    return this.registrations.hasOwnProperty(key);
+  }
+
   resolve(key) {
+    if (!this.isRegistered(key)) {
+      throw `"${key}" is not registered`;
+    }
+
     try {
-      return this.registrations[key][0].create(this);
+      let registration = this.registrations[key][0];
+      return registration.create(this);
     } catch(error) {
-      console.error(`ERROR: Could Not Resolve ${key}`);
-      console.error(error);
+      console.error(`ERROR: Could not resolve "${key}" ${error}`);
+      console.log("REGISTERED:");
+      console.log(this.registrations);
       throw error;
     }
   }

@@ -27,7 +27,7 @@ describe("Registry", () => {
       expect(subject.resolve('item')).toBeInstanceOf(Item);
     });
 
-    it ("resolves an instance with a dependency", function() {
+    it ("resolves an instance with a dependency", () => {
       subject.register('item', () => { return new Item() });
       subject.register('dependent', (container) => {
         return new Dependent(container.resolve('item'));
@@ -57,7 +57,7 @@ describe("Registry", () => {
       expect(result.item).toEqual(item);
     })
 
-    it ("resolves constructor dependencies for a singleton", function() {
+    it ("resolves constructor dependencies for a singleton", () => {
       var item = new Item();
       subject.register('item', () => item);
       subject.register('dependent', Dependent).asSingleton();
@@ -68,10 +68,16 @@ describe("Registry", () => {
       expect(result).toBe(other);
     });
 
-    it ("resolves a constructor with zero dependencies", function() {
+    it ("resolves a constructor with zero dependencies", () => {
       subject.register('item', Item);
 
       expect(subject.resolve('item')).toBeInstanceOf(Item);
+    });
+
+    it("raises an error when a component is not registered", () => {
+      expect(() => {
+        subject.resolve('unknown');
+      }).toThrow(/"unknown" is not registered/);
     });
   });
 
