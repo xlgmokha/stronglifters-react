@@ -46,8 +46,7 @@ export default class Api {
   }
 
   buildUrlFor(url) {
-    //let host = this.configuration.value_for('API_HOST');
-    let host = 'https://localhost:3000';
+    let host = this.configuration.value_for('API_HOST');
     return `${host}/api${url}`
   }
 }

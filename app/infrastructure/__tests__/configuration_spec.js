@@ -3,13 +3,27 @@ import Configuration from '../configuration';
 describe("Configuration", ()=> {
   let subject = null;
 
-  beforeEach(()=> {
-    subject = new Configuration('development');
+  describe("development", () => {
+    beforeEach(()=> {
+      subject = new Configuration('development');
+    });
+
+    it ("loads the api host", function() {
+      expect(
+        subject.value_for("API_HOST")
+      ).toEqual('http://localhost:3000')
+    });
   });
 
-  it ("loads the specified configuration", function() {
-    let apiHost='http://192.168.128.6:3000'
+  describe("production", () => {
+    beforeEach(()=> {
+      subject = new Configuration('production');
+    });
 
-    expect(subject.value_for("API_HOST")).toEqual(apiHost)
+    it ("loads the api host", function() {
+      expect(
+        subject.value_for("API_HOST")
+      ).toEqual('https://www.stronglifters.com')
+    });
   });
 });
