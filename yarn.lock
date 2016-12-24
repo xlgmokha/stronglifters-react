@@ -3035,10 +3035,6 @@ react-native-checkbox@~1.0.8:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/react-native-checkbox/-/react-native-checkbox-1.0.17.tgz#94c61f190ef728c38763f48cd7ab91a6ad9fd4e2"
 
-react-native-config@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.2.1.tgz#8331c050b8f487019b1baed93451f06ae5848926"
-
 react-native-easy-grid@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.1.7.tgz#44205cc39adff32a8a20efa8451d76a4499f0a3f"
