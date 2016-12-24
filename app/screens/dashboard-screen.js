@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Platform, View, Image } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper } from 'native-base';
 import ApplicationComponent from '../components/application-component';
 import WorkoutSummary from '../components/workout-summary';
@@ -52,9 +52,15 @@ export default class DashboardScreen extends ApplicationComponent {
 
   renderWorkouts(workouts) {
     let renderEach = (workout) => <WorkoutSummary key={workout.id} {...workout} />;
-    return (
-      <DeckSwiper dataSource={workouts} renderItem={renderEach} />
-    );
+    if (Platform.OS == 'ios') {
+      return (
+        <DeckSwiper dataSource={workouts} renderItem={renderEach} />
+      );
+    } else {
+      return (
+        <View>{workouts.map(renderEach)}</View>
+      );
+    }
   }
 
   onLoadHistory() {
