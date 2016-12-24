@@ -9,9 +9,7 @@ export default class EventAggregator {
 
   publish(event) {
     console.log("publishing:");
-    console.dir(event);
     this._subscriptionsFor(event.event).forEach((x) => {
-      console.dir(x);
       x.notify(event);
     });
   }

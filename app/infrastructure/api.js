@@ -9,10 +9,7 @@ export default class Api {
       console.log(`GET ${this.url}`);
       fetch(this.url, { method: 'GET', headers: headers })
         .then((response) => response.json())
-        .then((json) => {
-          console.dir(json);
-          success(json);
-        })
+        .then((json) => success(json))
         .catch((error) => console.error(error))
         .done();
     });
@@ -21,17 +18,13 @@ export default class Api {
   post(body, success) {
     const jsonBody = JSON.stringify(body);
     console.log(`POST ${this.url}`);
-    console.dir(jsonBody)
     fetch(this.url, {
       method: "POST",
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: jsonBody
     })
       .then((response) => response.json())
-      .then((json) => {
-        console.dir(json);
-        success(json);
-      })
+      .then((json) => success(json))
       .catch((error) => console.error(error))
       .done();
   }
