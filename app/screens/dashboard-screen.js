@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper } from 'native-base';
 import ApplicationComponent from '../components/application-component';
 import WorkoutSummary from '../components/workout-summary';
 import * as events from '../services/events';
@@ -20,7 +20,7 @@ export default class DashboardScreen extends ApplicationComponent {
   }
 
   render() {
-    let content = this.state.isLoading ? <Spinner /> : this.state.workouts.map(workout => <WorkoutSummary key={workout.id} {...workout} />);
+    let content = this.state.isLoading ? <Spinner /> : this.renderWorkouts(this.state.workouts);
     let gravatarUri = this.gravatarUri();
     return (
       <Container>
@@ -39,14 +39,20 @@ export default class DashboardScreen extends ApplicationComponent {
               <Icon name='ios-home' />
             </Button>
             <Button transparent onPress={this.onStartWorkout.bind(this)}>
-              <Icon name='ios-camera-outline' />
+              <Icon name='ios-play' />
             </Button>
             <Button transparent onPress={this.onLogout.bind(this)}>
-              <Icon name='ios-compass' />
+              <Icon name='ios-log-out' />
             </Button>
           </FooterTab>
         </Footer>
       </Container>
+    );
+  }
+
+  renderWorkouts(workouts) {
+    return (
+      <DeckSwiper dataSource={workouts} renderItem={workout => <WorkoutSummary key={workout.id} {...workout} />} />
     );
   }
 

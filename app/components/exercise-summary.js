@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { CardItem, Text } from 'native-base';
+import { View } from 'react-native';
+import { Card, CardItem, Text, Thumbnail, Button, Icon, ListItem } from 'native-base';
 
 export default class ExerciseSummary extends Component {
   render() {
     return (
-      <CardItem>
-        <Text>{this.props.name}</Text>
-        {this.workSets().map((set) => <CardItem key={set.id}><Text note>{this.summaryFor(set)}</Text></CardItem>)}
-      </CardItem>
+      <View>
+        <ListItem itemDivider>
+          <Text>{this.props.name}</Text>
+        </ListItem>
+        {
+          this.workSets().map((set) =>
+            <ListItem key={set.id}>
+              <Text>{this.summaryFor(set)}</Text>
+            </ListItem>
+          )
+        }
+      </View>
     );
   }
 
