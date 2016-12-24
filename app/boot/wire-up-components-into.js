@@ -27,7 +27,6 @@ export default class WireUpComponentsInto {
     this.registerSubscribers(queries);
 
     this.registry.resolveAll("subscriber").forEach((subscriber) => {
-      console.log(`subscribing: ${subscriber}`);
       subscriber.subscribeTo(this.registry.resolve('eventAggregator'));
     });
     return this.registry;

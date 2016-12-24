@@ -24,7 +24,6 @@ export class Resolver {
 
   resolveDependenciesUsing(container) {
     let ctor = this.parseConstructor(this.factory);
-    console.log(`Building: ${ctor[1]}`);
     let parameters = ctor.slice(2)[0].split(',').filter(Boolean);
     let dependencies = parameters.map((parameter) => {
       return container.resolve(parameter.trim());
@@ -82,8 +81,6 @@ export default class Registry {
       return registration.create(this);
     } catch(error) {
       console.error(`ERROR: Could not resolve "${key}" ${error}`);
-      console.log("REGISTERED:");
-      console.log(this.registrations);
       throw error;
     }
   }
