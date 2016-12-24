@@ -20,9 +20,7 @@ export default class WireUpComponentsInto {
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
-    this.registry.register('configuration', () => {
-      return new Configuration('development');
-    }).asSingleton();
+    this.registry.register('configuration', Configuration).asSingleton();
     this.registry.register('api', Api).asSingleton();
 
     this.registerSubscribers(commands);
