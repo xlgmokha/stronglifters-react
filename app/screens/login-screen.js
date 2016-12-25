@@ -1,16 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Container, Header, Title, Content, Spinner, List, ListItem, InputGroup, Input, Icon, Button, Text } from 'native-base';
-import Api from '../infrastructure/api'
-import DashboardScreen from './dashboard-screen'
-import ApplicationComponent from '../components/application-component'
-import Configuration from '../infrastructure/configuration'
 import * as events from '../services/events';
+import DashboardScreen from './dashboard-screen'
+import Screen from './screen'
 
-export default class LoginScreen extends ApplicationComponent {
+export default class LoginScreen extends Screen {
   constructor(props) {
     super(props)
-    this.configuration = new Configuration('development');
+    this.configuration = this.resolve('configuration');
     this.state = {
       account: { username: 'mokha', password: 'password' },
       eventsOfInterest: [events.LOGGED_IN],
@@ -99,8 +97,6 @@ export default class LoginScreen extends ApplicationComponent {
 
   notify(event) {
     this.setState({isLoading: false});
-    this.props.navigator.push({
-      component: DashboardScreen, params: { ...event }
-    });
+    this.loadScreen(DashboardScreen, { ...event })
   }
 }

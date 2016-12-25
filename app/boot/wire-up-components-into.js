@@ -16,7 +16,8 @@ export default class WireUpComponentsInto {
     this.registry.register('eventAggregator', EventAggregator).asSingleton();
     this.registry.register('router', (container) => {
       return new Router({
-        eventAggregator: container.resolve('eventAggregator')
+        eventAggregator: container.resolve('eventAggregator'),
+        registry: this.registry
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();

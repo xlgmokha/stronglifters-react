@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { Platform, View, Image } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper } from 'native-base';
-import ApplicationComponent from '../components/application-component';
-import WorkoutSummary from '../components/workout-summary';
 import * as events from '../services/events';
+import NewWorkoutScreen from './new-workout-screen';
+import React, { Component } from 'react';
+import Screen from './screen';
+import WorkoutSummary from '../components/workout-summary';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper } from 'native-base';
+import { Platform, View, Image } from 'react-native';
 
-export default class DashboardScreen extends ApplicationComponent {
+export default class DashboardScreen extends Screen {
   constructor(props) {
     super(props)
     this.state = {
@@ -80,6 +81,7 @@ export default class DashboardScreen extends ApplicationComponent {
 
   onStartWorkout() {
     console.log("start workout");
+    this.loadScreen(NewWorkoutScreen)
   }
 
   onLogout() {
