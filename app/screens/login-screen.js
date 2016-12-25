@@ -33,8 +33,7 @@ export default class LoginScreen extends Screen {
           <Spinner />
         </Content>
       );
-    }
-    else {
+    } else {
       return (
         <Content>
           <List>
