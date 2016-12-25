@@ -26,6 +26,6 @@ export default class ExerciseSummary extends Component {
 
   summaryFor(set) {
     let actual_repetitions = set.actual_repetitions || 0;
-    return `${actual_repetitions}/${set.target_repetitions} @ ${set.target_weight}`;
+    return `${actual_repetitions}/${set.target_repetitions} @ ${set.target_weight.amount} ${set.target_weight.unit}`;
   }
 }
