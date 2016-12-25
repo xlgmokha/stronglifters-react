@@ -15,11 +15,6 @@ export default class LoginScreen extends Screen {
     };
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    //this.notify({username: 'mokha', gravatar_id: '96c04b963c1ab66002bf3455900a2680' }); // TODO:: REMOVE
-  }
-
   render() {
     return (
       <Container>
@@ -72,27 +67,13 @@ export default class LoginScreen extends Screen {
     }
   }
 
-  formOptions() {
-    return {
-      auto: 'placeholders',
-      fields: { password: { secureTextEntry: true } }
-    };
-  }
-
   onLogin() {
-    let account = this.state.account;
-    console.log("LOGGING IN");
-    console.log(account);
     this.publish({
       event: events.LOGIN,
-      username: account.username,
-      password: account.password
+      username: this.state.account.username,
+      password: this.state.account.password
     });
     this.setState({isLoading: true});
-  }
-
-  onChange(account) {
-    this.setState({account: account});
   }
 
   notify(event) {
