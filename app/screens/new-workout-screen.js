@@ -7,7 +7,7 @@ export default class NewWorkoutScreen extends Screen {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       eventsOfInterest: [ events.FETCHED_NEW_WORKOUT ]
     };
   }
@@ -18,19 +18,19 @@ export default class NewWorkoutScreen extends Screen {
   }
 
   render() {
+    console.log(this.state.body_weight);
+    console.log(this.state.routine);
+    console.log(this.state.exercises);
     if (this.state.isLoading) {
-      console.log("loading...");
-      return (
-        <Container>
-          <Spinner />
-        </Container>
-      );
+      return ( <Container> <Spinner /> </Container>);
     } else {
-      console.log("loading new workout...");
       return (
         <Container>
+          <Header>
+            <Title>Routine {this.state.routine.name}</Title>
+          </Header>
           <Content>
-            <Text>Hello!</Text>
+            <Text>Body Weight: {this.state.body_weight.amount} {this.state.body_weight.unit}</Text>
           </Content>
         </Container>
       );
@@ -44,7 +44,7 @@ export default class NewWorkoutScreen extends Screen {
 
   notify(event) {
     switch(event.event) {
-      case events.FETCH_NEW_WORKOUT:
+      case events.FETCHED_NEW_WORKOUT:
         this.setState({ isLoading: false, ...event });
     }
   }
