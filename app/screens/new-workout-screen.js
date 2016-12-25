@@ -14,8 +14,7 @@ export default class NewWorkoutScreen extends Screen {
 
   componentDidMount() {
     super.componentDidMount();
-    this.publish(events.FETCH_NEW_WORKOUT);
-    this.setState({ isLoading: true });
+    this.onLoadWorkout()
   }
 
   render() {
@@ -27,6 +26,7 @@ export default class NewWorkoutScreen extends Screen {
         </Container>
       );
     } else {
+      console.log("loading new workout...");
       return (
         <Container>
           <Content>
@@ -34,6 +34,18 @@ export default class NewWorkoutScreen extends Screen {
           </Content>
         </Container>
       );
+    }
+  }
+
+  onLoadWorkout() {
+    this.setState({ isLoading: true });
+    this.publish({ event: events.FETCH_NEW_WORKOUT });
+  }
+
+  notify(event) {
+    switch(event.event) {
+      case events.FETCH_NEW_WORKOUT:
+        this.setState({ isLoading: false, ...event });
     }
   }
 }
