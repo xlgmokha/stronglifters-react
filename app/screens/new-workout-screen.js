@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper, Text, List, ListItem } from 'native-base';
 import Screen from './screen';
 import * as events from '../services/events';
@@ -31,19 +32,45 @@ export default class NewWorkoutScreen extends Screen {
           </Header>
           <Content>
             <Text>Body Weight: {this.state.body_weight.amount} {this.state.body_weight.unit}</Text>
-            <List
-              dataArray={this.state.exercises}
-              renderRow={(exercise) => <ListItem button onPress={() => this.onPress(exercise)}><Text>{exercise.name}</Text></ListItem>}
-              >
-            </List>
+            <List dataArray={this.state.exercises} renderRow={this.renderExercise.bind(this)}></List>
+            <Button large block iconRight onPress={this.onBeginWorkout.bind(this)}>
+              Begin
+              <Icon name='ios-arrow-forward' />
+            </Button>
           </Content>
         </Container>
       );
     }
   }
 
+  renderExercise(exercise) {
+    return (
+      <ListItem button onPress={() => this.onPress(exercise)}>
+        <View style={{flex: 1}}>
+          <Text>{exercise.name}</Text>
+          <List dataArray={this.setsFor(exercise)} renderRow={this.renderRow.bind(this)}></List>
+        </View>
+      </ListItem>
+    );
+  }
+
+  renderRow(set) {
+    console.log(set);
+    return (
+      <ListItem button><Text>{set.target_weight.amount} {set.target_weight.unit}</Text></ListItem>
+    );
+  }
+
+  setsFor(exercise) {
+    return this.state.sets.filter((set) => set.exercise_id == exercise.id).filter((set) => set.type == 'WorkSet');
+  }
+
   onPress(exercise) {
-    console.log(`pressed ${exercise.name}`)
+   console.log(`pressed ${exercise.name}`)
+  }
+
+  onBeginWorkout() {
+    console.log("BEGIN WORKOUT");
   }
 
   onLoadWorkout() {
