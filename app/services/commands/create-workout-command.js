@@ -22,7 +22,9 @@ export default class CreateWorkoutCommand {
   }
 
   onResponse(json) {
-    console.log("CREATED");
-    console.log(json);
+    this.eventAggregator.publish({
+      event: events.CREATED_WORKOUT,
+      ...json
+    });
   }
 }

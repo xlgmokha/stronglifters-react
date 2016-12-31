@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper, Text, List, ListItem } from 'native-base';
 import Screen from './screen';
+import WorkoutScreen from './workout-screen';
 import * as events from '../services/events';
 
 export default class NewWorkoutScreen extends Screen {
@@ -9,7 +10,7 @@ export default class NewWorkoutScreen extends Screen {
     super(props);
     this.state = {
       isLoading: true,
-      eventsOfInterest: [ events.FETCHED_NEW_WORKOUT ]
+      eventsOfInterest: [ events.FETCHED_NEW_WORKOUT, events.CREATED_WORKOUT ]
     };
   }
 
@@ -28,6 +29,10 @@ export default class NewWorkoutScreen extends Screen {
             <Title>Routine {this.state.routine.name}</Title>
           </Header>
           <Content>
+            <Button large block iconRight onPress={this.onBeginWorkout.bind(this)}>
+              Begin
+              <Icon name='ios-arrow-forward' />
+            </Button>
             <Text>Body Weight: {this.state.body_weight.amount} {this.state.body_weight.unit}</Text>
             <List dataArray={this.state.exercises} renderRow={this.renderExercise.bind(this)}></List>
             <Button large block iconRight onPress={this.onBeginWorkout.bind(this)}>
@@ -92,6 +97,8 @@ export default class NewWorkoutScreen extends Screen {
     switch(event.event) {
       case events.FETCHED_NEW_WORKOUT:
         this.setState({ isLoading: false, ...event });
+      case events.CREATED_WORKOUT:
+        this.loadScreen(WorkoutScreen, { ...event })
     }
   }
 }
