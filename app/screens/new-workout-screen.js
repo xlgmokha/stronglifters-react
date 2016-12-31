@@ -19,9 +19,6 @@ export default class NewWorkoutScreen extends Screen {
   }
 
   render() {
-    console.log(this.state.body_weight);
-    console.log(this.state.routine);
-    console.log(this.state.exercises);
     if (this.state.isLoading) {
       return ( <Container> <Spinner /> </Container>);
     } else {
@@ -55,7 +52,6 @@ export default class NewWorkoutScreen extends Screen {
   }
 
   renderRow(set) {
-    console.log(set);
     return (
       <ListItem button><Text>{set.target_weight.amount} {set.target_weight.unit}</Text></ListItem>
     );
@@ -70,7 +66,6 @@ export default class NewWorkoutScreen extends Screen {
   }
 
   onBeginWorkout() {
-    console.log("BEGIN WORKOUT");
     const sets = this.state.sets.map((set) => {
       return {
         exercise_id: set.exercise_id,
