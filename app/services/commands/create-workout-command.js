@@ -12,9 +12,11 @@ export default class CreateWorkoutCommand {
 
   notify(event) {
     const body = {
-      body_weight: event.body_weight,
-      exercise_sets_attributes: event.sets,
-      routine_id: event.routine_id,
+      workout: {
+        body_weight: event.body_weight,
+        exercise_sets_attributes: event.sets,
+        routine_id: event.routine_id,
+      }
     };
     this.api.post('/workouts', body, this.onResponse.bind(this));
   }
