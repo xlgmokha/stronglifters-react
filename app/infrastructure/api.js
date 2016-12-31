@@ -5,26 +5,24 @@ export default class Api {
   }
 
   get(relativeUrl, success) {
-    let url = this.buildUrlFor(relativeUrl);
+    const url = this.buildUrlFor(relativeUrl);
     this.defaultHeaders((headers) => {
       console.log(`GET ${url}`);
-      fetch(url, { method: 'GET', headers: headers })
-        .then((response) => response.json())
-        .then((json) => success(json))
-        .catch((error) => console.error(error))
-        .done();
+      this.execute(url, { method: 'GET', headers: headers }, success);
     });
   }
 
   post(relativeUrl, body, success) {
-    let url = this.buildUrlFor(relativeUrl);
+    const url = this.buildUrlFor(relativeUrl);
     const jsonBody = JSON.stringify(body);
-    console.log(`POST ${url}`);
-    fetch(url, {
-      method: "POST",
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: jsonBody
-    })
+    this.defaultHeaders((headers) => {
+      console.log(`POST ${url}`);
+      this.execute(url, { method: "POST", headers: headers, body: jsonBody }, success);
+    });
+  }
+
+  execute(url, options, success) {
+    fetch(url, options)
       .then((response) => response.json())
       .then((json) => success(json))
       .catch((error) => console.error(error))
