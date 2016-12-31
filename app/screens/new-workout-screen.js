@@ -66,11 +66,26 @@ export default class NewWorkoutScreen extends Screen {
   }
 
   onPress(exercise) {
-   console.log(`pressed ${exercise.name}`)
+   console.log(`pressed ${exercise.name}`);
   }
 
   onBeginWorkout() {
     console.log("BEGIN WORKOUT");
+    const sets = this.state.sets.map((set) => {
+      return {
+        exercise_id: set.exercise_id,
+        target_repetitions: set.target_repetitions,
+        target_weight: set.target_weight,
+        type: set.type,
+      };
+    });
+
+    this.publish({
+      body_weight: this.state.body_weight,
+      event: events.CREATE_WORKOUT,
+      routine_id: this.state.routine.id,
+      sets: sets,
+    });
   }
 
   onLoadWorkout() {
