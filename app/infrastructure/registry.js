@@ -19,7 +19,8 @@ export class Resolver {
   }
 
   isConstructor() {
-    return this.parseConstructor(this.factory)[1] != '';
+    return this.factory.name;
+    //return this.parseConstructor(this.factory)[1] != '';
   }
 
   resolveDependenciesUsing(container) {
