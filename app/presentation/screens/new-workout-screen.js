@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, Spinner, DeckSwiper, Text, List, ListItem } from 'native-base';
 import Screen from './screen';
 import WorkoutScreen from './workout-screen';
-import * as events from '../services/events';
+import * as events from '../../services/events';
 
 export default class NewWorkoutScreen extends Screen {
   constructor(props) {

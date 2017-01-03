@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Container, Header, Title, Content, Spinner, List, ListItem, InputGroup, Input, Icon, Button, Text } from 'native-base';
-import * as events from '../services/events';
+import * as events from '../../services/events';
 import DashboardScreen from './dashboard-screen'
 import Screen from './screen'
 

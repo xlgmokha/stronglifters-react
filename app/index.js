@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
-import LoginScreen from './screens/login-screen';
+import LoginScreen from './presentation/screens/login-screen';
 import WireUpComponentsInto from './boot/wire-up-components-into';
 
 export default class App extends Component {

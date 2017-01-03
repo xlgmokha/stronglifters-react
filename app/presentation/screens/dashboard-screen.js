@@ -1,4 +1,4 @@
-import * as events from '../services/events';
+import * as events from '../../services/events';
 import NewWorkoutScreen from './new-workout-screen';
 import React, { Component } from 'react';
 import Screen from './screen';
