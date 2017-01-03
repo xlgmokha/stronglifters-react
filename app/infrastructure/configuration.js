@@ -1,10 +1,14 @@
 var _defaults = {
-  API_HOST: 'http://192.168.128.6:3000',
+  API_HOST: 'https://www.stronglifters.com',
   ENV: 'production'
 };
 
 export default class Configuration {
+  constructor(overrides = _defaults) {
+    this.overrides = overrides;
+  }
+
   value_for(key) {
-    return process.env[key] || _defaults[key];
+    return process.env[key] || this.overrides[key];
   }
 }
