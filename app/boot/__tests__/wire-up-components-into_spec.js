@@ -19,7 +19,7 @@ describe("WireUpComponentsInto", () => {
 
     it ("registers each command", function() {
       results = registry.resolveAll('subscriber');
-      expect(results.length).toEqual(3);
+      expect(results.length).toEqual(5);
     });
 
     it ("can build the api", function() {
