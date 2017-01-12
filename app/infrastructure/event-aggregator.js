@@ -14,10 +14,10 @@ export default class EventAggregator {
   }
 
   unsubscribe(subscriber) {
-    for (var event in this.subscriptions) {
-      let items = this._subscriptionsFor(event)
-      if (items.has(subscriber)) {
-        items.delete(subscriber);
+    for (var subscription in this.subscriptions) {
+      let subscribers = this._subscriptionsFor(subscription)
+      if (subscribers.has(subscriber)) {
+        subscribers.delete(subscriber);
       }
     }
   }
