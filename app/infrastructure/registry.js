@@ -13,8 +13,8 @@ export class Resolver {
   }
 
   parseConstructor(func) {
-    let code = func.toString();
-    let regex = /function ([a-zA-Z]*)\((.*)\) *\{/;
+    const code = func.toString();
+    const regex = /function ([a-zA-Z]*)\((.*)\) *\{/;
     return code.match(regex);
   }
 
@@ -24,9 +24,9 @@ export class Resolver {
   }
 
   resolveDependenciesUsing(container) {
-    let ctor = this.parseConstructor(this.factory);
-    let parameters = ctor.slice(2)[0].split(',').filter(Boolean);
-    let dependencies = parameters.map((parameter) => {
+    const ctor = this.parseConstructor(this.factory);
+    const parameters = ctor.slice(2)[0].split(',').filter(Boolean);
+    const dependencies = parameters.map((parameter) => {
       return container.resolve(parameter.trim());
     });
     return new this.factory(...dependencies);
@@ -43,7 +43,7 @@ export class Registration {
   }
 
   asSingleton() {
-    let originalFactory = this.factory;
+    const originalFactory = this.factory;
     let item = null;
     this.factory = (container) => {
       if (item == null) {
@@ -56,20 +56,20 @@ export class Registration {
 
 export default class Registry {
   constructor() {
-    this.registrations = {};
+    this.registrations = new Map();
   }
 
   register(key, factory) {
-    if (this.registrations[key] == undefined) {
-      this.registrations[key] = [];
+    if (!this.isRegistered(key)) {
+      this.registrations.set(key, new Set());
     }
-    let registration = new Registration(factory);
-    this.registrations[key].push(registration);
+    const registration = new Registration(factory);
+    this.registrations.get(key).add(registration);
     return registration;
   }
 
   isRegistered(key) {
-    return this.registrations.hasOwnProperty(key);
+    return this.registrations.has(key);
   }
 
   resolve(key) {
@@ -78,7 +78,7 @@ export default class Registry {
     }
 
     try {
-      let registration = this.registrations[key][0];
+      const registration = this._registrationsFor(key)[0];
       return registration.create(this);
     } catch(error) {
       console.error(`ERROR: Could not resolve "${key}" ${error}`);
@@ -87,6 +87,10 @@ export default class Registry {
   }
 
   resolveAll(key) {
-    return this.registrations[key].map(registration => registration.create(this));
+    return this._registrationsFor(key).map(registration => registration.create(this));
+  }
+
+  _registrationsFor(key) {
+    return Array.from(this.registrations.get(key));
   }
 }
