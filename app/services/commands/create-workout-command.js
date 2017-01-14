@@ -1,7 +1,9 @@
 import * as events from '../events';
+import ApplicationCommand from './application-command';
 
-export default class CreateWorkoutCommand {
+export default class CreateWorkoutCommand extends ApplicationCommand {
   constructor(eventAggregator, api) {
+    super();
     this.eventAggregator = eventAggregator;
     this.api = api;
   }
@@ -10,7 +12,7 @@ export default class CreateWorkoutCommand {
     eventAggregator.subscribe(events.CREATE_WORKOUT, this);
   }
 
-  notify(event) {
+  run(event) {
     const body = {
       workout: {
         body_weight: event.body_weight,

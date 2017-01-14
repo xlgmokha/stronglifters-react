@@ -1,7 +1,9 @@
 import * as events from '../events';
+import ApplicationCommand from './application-command';
 
-export default class LogoutCommand {
+export default class LogoutCommand extends ApplicationCommand {
   constructor(eventAggregator, applicationStorage) {
+    super();
     this.eventAggregator = eventAggregator;
     this.applicationStorage = applicationStorage;
   }
@@ -10,7 +12,7 @@ export default class LogoutCommand {
     eventAggregator.subscribe(events.LOGOUT, this);
   }
 
-  notify(event) {
+  run(event) {
     this.applicationStorage.delete('authentication_token');
   }
 }
