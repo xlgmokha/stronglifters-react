@@ -22,7 +22,7 @@ export default class CreateWorkoutCommand extends ApplicationCommand {
       }
     };
     if (this.configuration.isEnabled('LOCAL_ONLY')) {
-      this.onResponse(this.exampleResponse());
+      this.onResponse(this.exampleResponseFor(body));
     } else {
       this.api.post('/workouts', body, this.onResponse.bind(this));
     }
@@ -35,10 +35,10 @@ export default class CreateWorkoutCommand extends ApplicationCommand {
     });
   }
 
-  exampleResponse() {
+  exampleResponseFor(body) {
     return {
-      "body_weight":{"amount":237.0,"unit":"lbs"},
-      "routine":{"id":"493263ce-6b60-456f-8645-f2c3f0e0f820","name":"B"},
+      "body_weight":{"amount":body.workout.body_weight,"unit":"lbs"},
+      "routine":{"id":body.workout.routine_id,"name":"B"},
       "exercises":[
         {"id":"7d91de12-60f6-4a04-9ed4-a9bbeb05681b","name":"Squat"},
         {"id":"98900216-dc06-474b-9f65-d72509aab218","name":"Overhead Press"},

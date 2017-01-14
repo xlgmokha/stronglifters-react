@@ -29,11 +29,7 @@ export default class NewWorkoutScreen extends Screen {
             <Title>Routine {this.state.routine.name}</Title>
           </Header>
           <Content>
-            <Button large block iconRight onPress={this.onBeginWorkout.bind(this)}>
-              Begin
-              <Icon name='ios-arrow-forward' />
-            </Button>
-            <Text>Body Weight: {this.state.body_weight.amount} {this.state.body_weight.unit}</Text>
+            <Text style={{textAlign: 'center'}}>Body Weight: {this.state.body_weight.amount} {this.state.body_weight.unit}</Text>
             <List dataArray={this.state.exercises} renderRow={this.renderExercise.bind(this)}></List>
             <Button large block iconRight onPress={this.onBeginWorkout.bind(this)}>
               Begin
@@ -58,7 +54,7 @@ export default class NewWorkoutScreen extends Screen {
 
   renderRow(set) {
     return (
-      <ListItem button><Text>{set.target_weight.amount} {set.target_weight.unit}</Text></ListItem>
+      <ListItem button><Text>{set.target_repetitions} repetitions @ {set.target_weight.amount} {set.target_weight.unit} </Text></ListItem>
     );
   }
 
