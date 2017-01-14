@@ -14,17 +14,20 @@ export default class Api {
 
   post(relativeUrl, body, success) {
     const url = this.buildUrlFor(relativeUrl);
-    const jsonBody = JSON.stringify(body);
     this.defaultHeaders((headers) => {
       console.log(`POST ${url}`);
-      this.execute(url, { method: "POST", headers: headers, body: jsonBody }, success);
+      this.execute(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body)
+      }, success);
     });
   }
 
   execute(url, options, success) {
     fetch(url, options)
       .then((response) => response.json())
-      .then((json) => success(json))
+      .then(success)
       .catch((error) => console.error(error))
       .done();
   }
