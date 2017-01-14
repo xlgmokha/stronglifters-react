@@ -1,11 +1,11 @@
 var _defaults = {
   API_HOST: 'https://www.stronglifters.com',
-  ENV: 'production'
+  ENV: 'production',
 };
 
 export default class Configuration {
   constructor(overrides = _defaults) {
-    this.overrides = overrides;
+    this.overrides = Object.assign({}, _defaults, overrides);
   }
 
   value_for(key) {
