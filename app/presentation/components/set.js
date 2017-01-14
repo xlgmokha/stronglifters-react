@@ -12,9 +12,24 @@ export default class Set extends Component {
   }
   render() {
     return (
-      <Button block info>
+      <Button style={{backgroundColor: this.backgroundColor()}} block info onPress={this.onPress.bind(this)}>
       {this.state.actual_repetitions} / {this.props.target_repetitions} @ <Weight weight={this.props.target_weight} />
       </Button>
     );
+  }
+
+  onPress() {
+    let actual_repetitions = this.isCompleted() ? 0 : this.state.actual_repetitions + 1;
+    this.setState({ actual_repetitions });
+  }
+
+  isCompleted() {
+    console.log([this.state.actual_repetitions, this.props.target_repetitions]);
+    return this.state.actual_repetitions === this.props.target_repetitions;
+  }
+
+  backgroundColor() {
+    if (this.isCompleted()) { return "green"; }
+    return this.props.type == "WarmUpSet" ? "pink" : "blue";
   }
 }
