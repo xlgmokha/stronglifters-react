@@ -11,4 +11,8 @@ export default class Configuration {
   value_for(key) {
     return process.env[key] || this.overrides[key];
   }
+
+  isEnabled(key) {
+    return this.value_for(key) == "true";
+  }
 }

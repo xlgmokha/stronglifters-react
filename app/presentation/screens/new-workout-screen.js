@@ -96,10 +96,13 @@ export default class NewWorkoutScreen extends Screen {
   notify(event) {
     switch(event.event) {
       case events.FETCHED_NEW_WORKOUT:
+        console.log("FETCHED_NEW WORKOUT");
         this.setState({ isLoading: false, ...event });
+        return
       case events.CREATED_WORKOUT:
-        console.dir(event);
+        console.dir("CREATED_WORKOUT");
         this.loadScreen(WorkoutScreen, { ...event })
+        return
     }
   }
 }

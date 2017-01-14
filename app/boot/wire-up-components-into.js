@@ -21,7 +21,12 @@ export default class WireUpComponentsInto {
       });
     }).asSingleton();
     this.registry.register('applicationStorage', ApplicationStorage).asSingleton();
-    this.registry.register('configuration', (container) => new Configuration({API_HOST: 'http://192.168.128.6:3000'})).asSingleton();
+    const overrides = { 
+      API_HOST: 'http://localhost:3000',
+      ENV: 'development',
+      LOCAL_ONLY: 'true',
+    };
+    this.registry.register('configuration', (container) => new Configuration(overrides)).asSingleton();
     this.registry.register('api', Api).asSingleton();
 
     this.registerSubscribers(commands);
